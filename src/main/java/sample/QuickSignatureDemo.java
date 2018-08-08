@@ -37,18 +37,18 @@ public class QuickSignatureDemo {
 
         // 签名文件
         FileData fileData = new FileData(
-                "https://raw.githubusercontent.com/signit-wesign/java-sdk-sample/master/demoData/quick_signature_with_fieldname.pdf");
+                "https://raw.githubusercontent.com/signit-wesign/java-sdk-sample/master/demoData/quickSignature.txt");
 
         // 详细的签名数据
         List<Signer> signDetails = new ArrayList<Signer>();
         // 使用关键字定位手写签名位置
-        // signDetails.add(setSignerForWriteSignWithKeyword());
+        signDetails.add(setSignerForWriteSignWithKeyword());
         // 直接设置手写签名位置
-        // signDetails.add(setSignerForWriteSignWithRectangle());
+        signDetails.add(setSignerForWriteSignWithRectangle());
         // 使用关键字定位签章位置
-        // signDetails.add(setSignerForSealSignWithKeyword());
+        signDetails.add(setSignerForSealSignWithKeyword());
         // 在签名域中签名
-        signDetails.add(setSignerForWriteSignWithFieldname());
+        // signDetails.add(setSignerForWriteSignWithFieldname());
 
         // 设置请求参数
         SignatureRequest request = SignatureRequest.builder()

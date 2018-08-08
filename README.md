@@ -1,41 +1,33 @@
 
 #易企签 Java SDK 示例
 
-四川思安特科技于2012年5月注册于绵阳市科创园区，专业从事信息安全产品研发及信息安全服务，主要拥有一次性密钥签名和多媒体数字证书等专利技术，解决云计算和移动智能环境下电子签名的安全性、合规性和便捷性等问题，为企事业单位实现端到端业务安全数字化管理提供了技术手段。员工20多人，部分是高校在校实习生，企业曾获得绵阳市“涌泉团队”资助，并承担了绵阳市中小企业创新基金项目研发工作。
-
-思安特科技主营业务是：以创新的密码机制和电子签名技术提供专业、安全、优质的数字化业务管理。公司研发团队主要对安全身份认证产品，密码安全产品进行研发，保证信息系统的安全授权和数据的安全存放
-
-产品主要用于信息系统的安全认证，文档的电子存证及保留，与市场中竞争性产品相比较，思安特科技易企签产品具有独特的技术优势：
-
-1.	采用基于“一次性密钥”签名技术，解决了各类信息环境下的电子取证安全性和便利性的问题；
-
-2.	独立的数字证据保全设计，满足不同价值等级的业务场景需求；
-
-国内信息安全市场中， PKI基础设施的发展也最为广泛，随着近几年国内 IT 建设投入的加大，信息安全意识的增强， 如何保证信息系统的安全认证及文档的安全取证成为了研究重点，2011 年开始， 这个市场将保持高于 60%的年复合增长率。本公司产品定位在一个高速发展的市场，于2020年预计实现13500万元的营业收入，占细分市场总规模的20%左右。本企业产品目标客户是中大型企业用户，军工企业，安全资质要求较高的行业部门等。
-
-了解更多易企签详情请访问  [http://www.signit.cn](http://www.signit.cn)
+易企签Java sdk调用示例，包括**快捷签署**等功能
 
 #环境要求
 Java 1.6 or later.
 
 #使用前准备
 ### 1、申请应用
-申请应用需要已经**实名认证**过的**企业账号**，如尚未拥有账号，请前往[https://app.signit.cn](https://app.signit.cn) 注册申请并进行认证。
+申请应用需要已经**实名认证**过的**企业账号**，如尚未拥有账号，请前往[https://www.signit.cn](https://www.signit.cn) 注册申请并进行认证。
 
 已经拥有账号的用户请[登录](https://app.signit.cn/login)后切换到企业账号下，从"企业"的"开放API"中进入开发者中心创建应用。
 
 ### 2、设置webhook地址
 sdk中部分功能需要依托webhook传递数据，所以需要设置一个webhook地址。如果webhook地址测试不通过，服务端将无法返回处理后的数据给客户端。
 
+为了方便开发者进行调试，可以访问[https://request.worktile.com](https://request.worktile.com)生成URL地址作为webhook地址，如[https://request.worktile.com/B1pD7CwHX](https://request.worktile.com/B1pD7CwHX)，调用应用功能如快捷签署成功后，前往[https://request.worktile.com/B1pD7CwHX/inspect](https://request.worktile.com/B1pD7CwHX/inspect)查看接收到的webhook信息
+
 #安装方式
 
-### SDK
-[sdk的下载地址]()
 
 ### Maven
-```
-maven的引入方式
-```
+
+	<dependency>
+		<groupId>cn.signit.sdk</groupId>
+		<artifactId>signit-java-sdk</artifactId>
+		<version>1.0.1</version>
+	</dependency>
+
 ### 源码
 如需使用源码，请前往[易企签官方github](https://github.com/signit-wesign/java-sdk)下载
 
@@ -46,4 +38,4 @@ maven的引入方式
 
 无需将文件上传到易企签平台，只需要在sdk中设置待签名的文件以及签名数据，调用快捷签署接口，即可在开放平台设置的webhook地址中的接收到签名后的文件
 
-[快捷签署调用示例]()
+[快捷签署调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/QuickSignatureDemo.java)
