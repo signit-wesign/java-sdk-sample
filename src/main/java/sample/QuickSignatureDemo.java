@@ -38,6 +38,8 @@ public class QuickSignatureDemo {
         // 签名文件
         FileData fileData = new FileData(
                 "https://raw.githubusercontent.com/signit-wesign/java-sdk-sample/master/demoData/quickSignature.txt");
+        // 签名的文件生成一页的文档
+        fileData.setEnableSinglePage(true);
 
         // 详细的签名数据
         List<Signer> signDetails = new ArrayList<Signer>();
