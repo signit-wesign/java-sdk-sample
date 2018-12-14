@@ -1,4 +1,4 @@
-package java_sdk_sample;
+package sample;
 
 import java.io.IOException;
 import java.util.ArrayList;
