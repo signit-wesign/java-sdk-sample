@@ -27,18 +27,16 @@ public class EnterpriseVerifyDemo {
     public static void main(String[] args) throws SignitException {
         // https://webhook.site
         // webhook 地址 https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06
+        // webhook地址
+        // http://openapit.tongwei.com:8000/api/permit-openbusi/transfer/transfer2SubSys?BIZ_CODE=10001
         String appSecretKey = "sk23881d0f62799a8a2353c14258136a96";
         String appId = "167aba734840242ac1300069ed1";
-        // String appUrl = "http://localhost:7830/verifications/enterprise";
-        // String appUrl =
-        // "http://112.44.251.136:2576/v1/open/verifications/enterprise";
-        String appUrl = "http://10.10.9.70/v1/open/verifications/enterpise";
+        String appUrl = "http://112.44.251.136:2576/v1/open/verifications/enterprise";
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
         // 测试环境需要手动设置oauthUrl，生产环境不用设置
-        // client.setOauthUrl("http://10.10.9.147:2576/v1/oauth/oauth/token");
-        client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");
+        client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
         EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
@@ -56,18 +54,7 @@ public class EnterpriseVerifyDemo {
                         .name("王五")
                         .idCardNo("511112199409113015")
                         .idCardType(IdCardType.SECOND_GENERATION_IDCARD)
-                        .phone("18583506019")
-                // .idCardImages(IdCardImage.builder()
-                // .imageName("法人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_FRONT)
-                // .imageData(IdCardImageData.builder()
-                // .url("https://raw.githubusercontent.com/zhangbo1416694870/file-system/master/zhangbo.png")),
-                // IdCardImage.builder()
-                // .imageName("法人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_FRONT)
-                // .imageData(IdCardImageData.builder()
-                // .url("https://raw.githubusercontent.com/zhangbo1416694870/file-system/master/zhangbo.png")))
-                )
+                        .phone("18380581554"))
                 .unifiedSocialCode("91510700595072782J")
                 .businessLicenceImage(IdCardImage.builder()
                         .imageName("营业执照图片")
@@ -98,18 +85,7 @@ public class EnterpriseVerifyDemo {
                                 .imageName("委托书照片")
                                 .imageCode(ImageCode.AGENT_TRUST)
                                 .imageData(IdCardImageData.builder()
-                                        .url("http://img53.chem17.com/2/20130718/635097412512148201680.jpg")))
-                // .idCardImages(IdCardImage.builder()
-                // .imageName("经办人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_FRONT)
-                // .imageData(IdCardImageData.builder()
-                // .url("http://5b0988e595225.cdn.sohucs.com/images/20181127/433e8249175e4ac9ae0314ad9f6b6ac1.jpeg")),
-                // IdCardImage.builder()
-                // .imageName("经办人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_BACK)
-                // .imageData(IdCardImageData.builder()
-                // .url("http://img.mp.sohu.com/q_70,c_zoom,w_640/upload/20170704/83902139496349e2a6e88d2486150248_th.jpg")))
-                )
+                                        .url("http://img53.chem17.com/2/20130718/635097412512148201680.jpg"))))
                 .unifiedSocialCode("91510700595072782J")
                 .businessLicenceImage(IdCardImage.builder()
                         .imageName("营业执照图片")
