@@ -31,7 +31,7 @@ public class EnterpriseVerifyDemo {
         String appId = "1678bc2091000d861138f74aa51";// 794182811@qq.com
                                                      // 国信易企签科技有限公司
         // String appUrl = "http://localhost:7830/verifications/enterprise";
-        String appUrl = "http://10.10.9.70:7830/verifications/enterprise";
+        String appUrl = "http://10.10.9.70:2576/v1/open/verifications/enterprise";
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
@@ -48,13 +48,13 @@ public class EnterpriseVerifyDemo {
 
     public static EnterpriseVerifyRequest verifyUseLegelPersonWithLeastParams() {
         return EnterpriseVerifyRequest.builder()
-                .name("王五的企阿托")
+                .name("王五的最后一次真的真的真的呀")
                 .authType(EnterpriseAuthType.LEGAL_PERSON)
                 .legalPerson(EnterpriseLegalPerson.builder()
                         .name("王五")
-                        .idCardNo("idCardNo")
+                        .idCardNo("511112199409113015")
                         .idCardType(IdCardType.SECOND_GENERATION_IDCARD)
-                        .phone("18380581554")
+                        .phone("18583506019")
                 // .idCardImages(IdCardImage.builder()
                 // .imageName("法人身份证正面照")
                 // .imageCode(ImageCode.AGENT_ID_CARD_FRONT)

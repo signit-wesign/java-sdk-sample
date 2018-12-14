@@ -52,7 +52,7 @@ public class StartEnvelopeDemo {
 
         // String appUrl =
         // "http://10.10.9.70:2576/v1/open/verifications/enterprise";
-        String appUrl = "http://localhost:7830/envelopes/start";
+        String appUrl = "http://10.10.9.148:7830/envelopes/start";
 
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
         client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");
@@ -92,7 +92,7 @@ public class StartEnvelopeDemo {
                                         .phone("13795956607"))
                                 .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                 .type(ReceiverType.SIGNER)
-                                // .roleType
+                                .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
                                 .needForm(false)
                                 .assignedSequence(1)
                                 .authLevel(AuthLevel.LOW)

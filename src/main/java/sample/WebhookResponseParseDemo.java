@@ -3,9 +3,9 @@ package sample;
 import com.alibaba.fastjson.JSON;
 
 import cn.signit.sdk.SignitClient;
-import cn.signit.sdk.pojo.webhook.response.AbstractWebhookResponseData;
 import cn.signit.sdk.pojo.webhook.response.EnterpriseVerificationSubmitted;
 import cn.signit.sdk.pojo.webhook.response.WebhookResponse;
+import cn.signit.sdk.type.WebhookEventType;
 import cn.signit.sdk.util.HmacSignatureBuilder;
 
 /**
@@ -46,15 +46,33 @@ public class WebhookResponseParseDemo {
         // step2: 解析webhook响应数据
         WebhookResponse ente = SignitClient.parseWebhookResponse(enteVerifyWebhookRespStr);
 
-        // ps:rawData 获取的2种方式
-
-        // 法1：
-        AbstractWebhookResponseData rawData1 = ente.rawDataAsBean();
-
-        // 法2：
-        if (ente.getEvent()
-                .equals("enterpriseVerificationSubmitted")) {
-            EnterpriseVerificationSubmitted rawData = ente.rawDataAsBean(EnterpriseVerificationSubmitted.class);
+        // step3: 解析获取rawData
+        switch (WebhookEventType.parse(ente.getEvent())) {
+        // 企业实名认证提交
+        case ENTERPRISE_VERIFICATION_SUBMITTED:
+            // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
+            // 法1：
+            EnterpriseVerificationSubmitted rawData1 = (EnterpriseVerificationSubmitted) ente.rawDataAsBean();
+           boolean s= rawData1.isSuccess();
+            // 法2：
+            EnterpriseVerificationSubmitted rawDat2 = ente.rawDataAsBean(EnterpriseVerificationSubmitted.class);
+            break;
+        // 企业实名认证初级完成
+        case ENTERPRISE_PRIMARY_COMPLETED:
+            // 企业实名认证已打款
+        case ENTERPRISE_VERIFICATION_PAID:
+            // 企业实名认证完成
+        case ENTERPRISE_VERIFICATION_COMPLETED:
+            // 信封流程完成
+        case ENVELOPE_COMPLETED:
+            // 信封流程完成
+        case ENVELOPE_STARTED:
+            // 参与者确认
+        case PARTICIPANT_CONFIRMED:
+            // 参与者拒绝
+        case PARTICIPANT_REJECTED:
+        default:
+            break;
         }
 
         System.out.println("\nwebhookResponse is :\n" + JSON.toJSONString(ente, true));
