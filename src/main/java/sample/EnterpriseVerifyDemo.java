@@ -27,15 +27,17 @@ public class EnterpriseVerifyDemo {
     public static void main(String[] args) throws SignitException {
         // https://webhook.site
         // webhook 地址 https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06
-        String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
-        String appId = "1678bc2091000d861138f74aa51";// 794182811@qq.com
-                                                     // 国信易企签科技有限公司
+        String appSecretKey = "sk23881d0f62799a8a2353c14258136a96";
+        String appId = "167aba734840242ac1300069ed1";
         // String appUrl = "http://localhost:7830/verifications/enterprise";
-        String appUrl = "http://10.10.9.70:2576/v1/open/verifications/enterprise";
+        // String appUrl =
+        // "http://112.44.251.136:2576/v1/open/verifications/enterprise";
+        String appUrl = "http://10.10.9.70/v1/open/verifications/enterpise";
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
         // 测试环境需要手动设置oauthUrl，生产环境不用设置
+        // client.setOauthUrl("http://10.10.9.147:2576/v1/oauth/oauth/token");
         client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
         EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams();
@@ -48,7 +50,7 @@ public class EnterpriseVerifyDemo {
 
     public static EnterpriseVerifyRequest verifyUseLegelPersonWithLeastParams() {
         return EnterpriseVerifyRequest.builder()
-                .name("王五的最后一次真的真的真的呀")
+                .name("王五的最后一次真的真的真的是呀")
                 .authType(EnterpriseAuthType.LEGAL_PERSON)
                 .legalPerson(EnterpriseLegalPerson.builder()
                         .name("王五")
