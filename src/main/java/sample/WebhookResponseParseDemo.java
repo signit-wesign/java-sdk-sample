@@ -18,15 +18,15 @@ import cn.signit.sdk.util.HmacSignatureBuilder;
 public class WebhookResponseParseDemo {
     public static void main(String[] args) {
 
-        String enteVerifyWebhookRespStr = "{\"event\":\"enterpriseVerificationSubmitted\",\"target\":{\"webhookWsid\":\"WSID_HOOK_000001678bc29d510242ac1400030001\",\"destination\":\"https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\"},\"rawData\":\"{\\\"code\\\":\\\"100550000\\\",\\\"message\\\":\\\"\\\\u8BF7\\\\u6C42\\\\u6210\\\\u529F\\\",\\\"customTag\\\":\\\"hello world agent:https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\\\",\\\"invokeNo\\\":\\\"201812111620019293398044121001\\\",\\\"actionUrl\\\":\\\"http://10.10.9.67:61112/WSID_LINK_000001679c59fbd4aafd2531a35d0001/open-flow-enterprise-identity?token=43528582a1bb4659b33c8eee57c717cb\\\",\\\"status\\\":\\\"INCOMPLETE\\\",\\\"links\\\":[]}\",\"needCallBack\":false}";
+        String enteVerifyWebhookRespStr = "{\"event\":\"enterpriseVerificationSubmitted\",\"target\":{\"webhookWsid\":\"WSID_HOOK_000001678bc29d510242ac1400030001\",\"destination\":\"https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\"},\"rawData\":\"{\\\"code\\\":\\\"100550000\\\",\\\"message\\\":\\\"\\\\u8BF7\\\\u6C42\\\\u6210\\\\u529F\\\",\\\"customTag\\\":\\\"hello world legal People:https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\\\",\\\"invokeNo\\\":\\\"201812170944268608001716639001\\\",\\\"actionUrl\\\":\\\"http://10.10.9.67:61112/WSID_LINK_00000167b9d5fdbb4e4a988d68c80001/open-flow-enterprise-identity?token=1363dc721e5e47f4ab150880e146b9d1\\\",\\\"status\\\":\\\"INCOMPLETE\\\",\\\"links\\\":[]}\",\"needCallBack\":false}";
         String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
         String appId = "1678bc2091000d861138f74aa51";
         // webhook响应header中x-signit-signature
-        String signitSignature = "HmacSHA512 1678bc2091000d861138f74aa51:Xkx6X35mqC8kG16NOPtV7IX+1h1KsEdbbvTgYtXOUXojjjGd+1gP7tu4n/zD7AqiD4KoCFD4yEzoOwrPORj9zg==";
+        String signitSignature = "HmacSHA512 1678bc2091000d861138f74aa51:le3SIT/QgHje/SZ047DIavKP8sP9weEQy58UFovYa5jzVupJzn9jgYU1nO93AYuyZSojdXiDb3cmltGxXN8S9Q==";
         // webhook响应header中x-signit-nonce
-        String nonce = "yZIAsVFMzl1GTVoe0suis77p";
+        String nonce = "2QzvVs0lP2oJ80SWjSi0VYK0";
         // webhook响应header中x-signit-date
-        String dataString = "Tue Dec 11 16:20:02 CST 2018";
+        String dataString = "Mon Dec 17 09:44:28 CST 2018";
         // webhook响应header中host
         String host = "webhook.site";
 
