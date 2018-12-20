@@ -59,23 +59,32 @@ public class WebhookResponseParseDemo {
             break;
         // 企业实名认证初级完成
         case ENTERPRISE_PRIMARY_COMPLETED:
+            break;
             // 企业实名认证已打款
         case ENTERPRISE_VERIFICATION_PAID:
+            break;
             // 企业实名认证完成
         case ENTERPRISE_VERIFICATION_COMPLETED:
+            break;
             // 信封流程完成
         case ENVELOPE_COMPLETED:
+            break;
             // 信封流程完成
         case ENVELOPE_STARTED:
+            break;
             // 参与者确认
         case PARTICIPANT_CONFIRMED:
+            break;
             // 参与者拒绝
         case PARTICIPANT_REJECTED:
+            break;
+         // 个人实名认证完成
+        case PERSON_VERIFICATION_COMPLETED:
+            break;
         default:
             break;
         }
 
         System.out.println("\nwebhookResponse is :\n" + JSON.toJSONString(ente, true));
     }
-
 }
