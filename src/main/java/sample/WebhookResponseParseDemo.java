@@ -58,7 +58,7 @@ public class WebhookResponseParseDemo {
             EnterpriseVerificationSubmitted rawDat2 = ente.rawDataAsBean(EnterpriseVerificationSubmitted.class);
             break;
         // 企业实名认证初级完成
-        case ENTERPRISE_PRIMARY_COMPLETED:
+        case ENTERPRISE_VERIFICATION_PRIMARY_COMPLETED:
             break;
             // 企业实名认证已打款
         case ENTERPRISE_VERIFICATION_PAID:
