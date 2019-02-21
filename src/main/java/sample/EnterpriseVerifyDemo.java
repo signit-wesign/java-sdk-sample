@@ -7,6 +7,7 @@ import cn.signit.sdk.SignitException;
 import cn.signit.sdk.pojo.EnterpriseAgent;
 import cn.signit.sdk.pojo.EnterpriseBankCardInfo;
 import cn.signit.sdk.pojo.EnterpriseLegalPerson;
+import cn.signit.sdk.pojo.ErrorResp;
 import cn.signit.sdk.pojo.IdCardImage;
 import cn.signit.sdk.pojo.IdCardImageData;
 import cn.signit.sdk.pojo.request.EnterpriseVerifyRequest;
@@ -15,6 +16,7 @@ import cn.signit.sdk.type.AcceptDataType;
 import cn.signit.sdk.type.EnterpriseAuthType;
 import cn.signit.sdk.type.IdCardType;
 import cn.signit.sdk.type.ImageCode;
+import cn.signit.sdk.util.FastjsonDecoder;
 
 /**
  * 易企签 Java SDK 企业实名认证调用示例代码</br>
@@ -25,67 +27,66 @@ import cn.signit.sdk.type.ImageCode;
  */
 public class EnterpriseVerifyDemo {
     public static void main(String[] args) throws SignitException {
-        // https://webhook.site
-        // webhook 地址 https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06
+        // https://webhook.site 可以在该网站上申请webhook地址用于测试
+        // 本次测试webhook地址 https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06
         String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
-        String appId = "1678bc2091000d861138f74aa51";// 794182811@qq.com
-                                                     // 国信易企签科技有限公司
-        // String appUrl = "http://localhost:7830/verifications/enterprise";
-        String appUrl = "http://10.10.9.70:2576/v1/open/verifications/enterprise";
+        String appId = "1678bc2091000d861138f74aa51";
+
+        // String appUrl = "https://open.signit.cn/v1/open/verifications/enterprise";
+        String appUrl = "http://10.10.9.70:2576/v1/open/verifications/enterprise";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
-        // 测试环境需要手动设置oauthUrl，生产环境不用设置
-        client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");
+        client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
+
         // step2: 使用SDK封装实名认证请求
         EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
+
         // step3: 执行请求,获得响应
-        EnterpriseVerifyResponse response = client.execute(request);
+        EnterpriseVerifyResponse response = null;
+        try {
+            response = client.execute(request);
+        } catch (SignitException e) {
+            if (FastjsonDecoder.isValidJson(e.getMessage())) {
+                ErrorResp error = FastjsonDecoder.decodeAsBean(e.getMessage(), ErrorResp.class);
+                System.out.println("\nerror rmresponse is:\n" + JSON.toJSONString(error, true));
+            } else {
+                System.out.println("\nerror rmresponse is:\n" + e.getMessage());
+            }
+        }
         System.out.println("\nresponse is:\n" + JSON.toJSONString(response, true));
 
     }
 
     public static EnterpriseVerifyRequest verifyUseLegelPersonWithLeastParams() {
         return EnterpriseVerifyRequest.builder()
-                .name("王五的最后一次真的真的真的呀")
+                .name("河南韩起电气设备有限公司")
                 .authType(EnterpriseAuthType.LEGAL_PERSON)
                 .legalPerson(EnterpriseLegalPerson.builder()
-                        .name("王五")
-                        .idCardNo("511112199409113015")
+                        .name("张宇")
+                        .idCardNo("511324199110124864")
                         .idCardType(IdCardType.SECOND_GENERATION_IDCARD)
-                        .phone("18583506019")
-                // .idCardImages(IdCardImage.builder()
-                // .imageName("法人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_FRONT)
-                // .imageData(IdCardImageData.builder()
-                // .url("https://raw.githubusercontent.com/zhangbo1416694870/file-system/master/zhangbo.png")),
-                // IdCardImage.builder()
-                // .imageName("法人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_FRONT)
-                // .imageData(IdCardImageData.builder()
-                // .url("https://raw.githubusercontent.com/zhangbo1416694870/file-system/master/zhangbo.png")))
-                )
-                .unifiedSocialCode("91510700595072782J")
+                        .phone("13281522860"))
+                .unifiedSocialCode("91410103341757802J")
                 .businessLicenceImage(IdCardImage.builder()
-                        .imageName("营业执照图片")
+                        .imageName("营业执照演示图片.jpg")
                         .imageCode(ImageCode.BUSINESS_LICENCE)
                         .imageData(IdCardImageData.builder()
-                                .url("https://raw.githubusercontent.com/zhangbo1416694870/file-system/master/zhangbo.png")))
+                                .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E8%90%A5%E4%B8%9A%E6%89%A7%E7%85%A7%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87.jpg")))
                 .bankCardInfo(EnterpriseBankCardInfo.builder()
                         .bankCardNo("6228480489080786572")
                         .bankBranch("绵阳市涪城区西科大支行")
                         .bank("中国农业银行"))
                 .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("hello world legal People:https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
+                .customTag("hello world legal person, this is test")
                 .build();
-
     }
 
     public static EnterpriseVerifyRequest verifyUseAgentWithLeastParams() {
         return EnterpriseVerifyRequest.builder()
-                .name("王五的企业")
+                .name("河南韩起电气设备有限公司")
                 .authType(EnterpriseAuthType.AGENT)
                 .agent(EnterpriseAgent.builder()
                         .name("王五")
@@ -96,33 +97,23 @@ public class EnterpriseVerifyDemo {
                                 .imageName("委托书照片")
                                 .imageCode(ImageCode.AGENT_TRUST)
                                 .imageData(IdCardImageData.builder()
-                                        .url("http://img53.chem17.com/2/20130718/635097412512148201680.jpg")))
-                // .idCardImages(IdCardImage.builder()
-                // .imageName("经办人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_FRONT)
-                // .imageData(IdCardImageData.builder()
-                // .url("http://5b0988e595225.cdn.sohucs.com/images/20181127/433e8249175e4ac9ae0314ad9f6b6ac1.jpeg")),
-                // IdCardImage.builder()
-                // .imageName("经办人身份证正面照")
-                // .imageCode(ImageCode.AGENT_ID_CARD_BACK)
-                // .imageData(IdCardImageData.builder()
-                // .url("http://img.mp.sohu.com/q_70,c_zoom,w_640/upload/20170704/83902139496349e2a6e88d2486150248_th.jpg")))
+                                        .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E5%A7%94%E6%89%98%E4%B9%A6%E6%BC%94%E7%A4%BA%E7%A4%BA%E4%BE%8B.docx")))
+
                 )
                 .unifiedSocialCode("91510700595072782J")
                 .businessLicenceImage(IdCardImage.builder()
-                        .imageName("营业执照图片")
+                        .imageName("营业执照演示图片.jpg")
                         .imageCode(ImageCode.BUSINESS_LICENCE)
                         .imageData(IdCardImageData.builder()
-                                .url("https://raw.githubusercontent.com/zhangbo1416694870/file-system/master/zhangbo.png")))
+                                .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E8%90%A5%E4%B8%9A%E6%89%A7%E7%85%A7%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87.jpg")))
                 .bankCardInfo(EnterpriseBankCardInfo.builder()
                         .bankCardNo("6228480489080786572")
                         .bankBranch("绵阳市涪城区西科大支行")
                         .bank("中国农业银行"))
                 .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("hello world agent:https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
+                .customTag("hello world legal People, this is test")
                 .build();
-
     }
 
 }

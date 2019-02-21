@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -62,10 +63,34 @@ public class WebhookResponseParseByRequestDemo {
             System.out.println("\nwebhookResponse is :\n" + JSON.toJSONString(ente, true));
 
         }
+        
+        // 由于request中body数据流只能打开一次，如果涉及多次需要取出使用的场景不合适，故而可以使用@RequestBody方式获取webhook响应数据流
+        @PostMapping("test/parse-webhook-withbody")
+        public void testVerifyAndParseWebhookResponse(HttpServletRequest request, @RequestBody byte[] body)
+                throws IOException {
+            String appId = "1678bc2091000d861138f74aa51";
+            String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
 
+            // step1 : 客户端验证服务端
+            boolean verifyResult = SignitClient.verify(appId, appSecretKey, body, request);
+
+            System.out.println("\n\nthe result of hmac verify is " + verifyResult);
+
+            // step2: 解析webhook响应数据
+            WebhookResponse ente = SignitClient.parseWebhookResponse(new String(body));
+            System.out.println("\nwebhookResponse is :\n" + JSON.toJSONString(ente, true));
+
+        }
+        
         @GetMapping("test")
         public String test() throws IOException {
             sendHttpRequest();
+            return "send success";
+        }
+        
+        @GetMapping("test-body")
+        public String test2() throws IOException {
+            sendHttpRequest2();
             return "send success";
         }
 
@@ -74,18 +99,18 @@ public class WebhookResponseParseByRequestDemo {
     // 模拟易企签 发送给客户端 webhook响应数据
     public static void sendHttpRequest() throws IOException {
 
-        String enteVerifyWebhookRespStr = "{\"event\":\"enterpriseVerificationSubmitted\",\"target\":{\"webhookWsid\":\"WSID_HOOK_000001678bc29d510242ac1400030001\",\"destination\":\"https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\"},\"rawData\":\"{\\\"code\\\":\\\"100550000\\\",\\\"message\\\":\\\"\\\\u8BF7\\\\u6C42\\\\u6210\\\\u529F\\\",\\\"customTag\\\":\\\"hello world agent:https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\\\",\\\"invokeNo\\\":\\\"201812111620019293398044121001\\\",\\\"actionUrl\\\":\\\"http://10.10.9.67:61112/WSID_LINK_000001679c59fbd4aafd2531a35d0001/open-flow-enterprise-identity?token=43528582a1bb4659b33c8eee57c717cb\\\",\\\"status\\\":\\\"INCOMPLETE\\\",\\\"links\\\":[]}\",\"needCallBack\":false}";
+        String enteVerifyWebhookRespStr = "{\"event\":\"participantRejected\",\"target\":{\"webhookWsid\":\"WSID_HOOK_000001678bc29d510242ac1400030001\",\"destination\":\"https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\"},\"rawData\":\"{\\\"code\\\":\\\"100600000\\\",\\\"message\\\":\\\"\\\\u64CD\\\\u4F5C\\\\u6210\\\\u529F\\\",\\\"actionUrl\\\":\\\"http://10.10.9.67:61112/WSID_LINK_0000016878b6004f22c91cdc09520001/open-flow-envelope?token=03875e09d6b94c6098c4b3bf42e8e13b\\\",\\\"actions\\\":[\\\"CHECK\\\",\\\"SIGN\\\",\\\"VIEW\\\"],\\\"account\\\":\\\"18380581554\\\",\\\"customTag\\\":\\\"C130018122503922\\\",\\\"invokeNo\\\":\\\"201901231114463824001724586001\\\",\\\"basicEnvelope\\\":{\\\"wsid\\\":\\\"WSID_ENVE_0000016878b329d1e294b6c7f50d0001\\\",\\\"status\\\":\\\"ED_FAIL_REJECT\\\",\\\"createdDatetime\\\":1548213287000,\\\"expireDatetime\\\":1579749287000,\\\"statusDatetime\\\":1548213420000,\\\"statusReason\\\":\\\"\\\\u6D4B\\\\u8BD5\\\",\\\"currentSequence\\\":1},\\\"senderParticipant\\\":{\\\"name\\\":\\\"\\\\u5218\\\\u6E05\\\\u534E\\\",\\\"contactMetadata\\\":{\\\"contacts\\\":[{\\\"email\\\":\\\"\\\",\\\"sms\\\":\\\"18681695956\\\"}]}},\\\"receiverParticipant\\\":{\\\"name\\\":\\\"\\\\u5F20\\\\u6CE2\\\",\\\"contactMetadata\\\":{\\\"contacts\\\":[{\\\"sms\\\":\\\"18380581554\\\"}]},\\\"secureLevel\\\":\\\"DISPOSABLE_CERT\\\",\\\"type\\\":\\\"SIGNER\\\",\\\"roleType\\\":\\\"PERSON\\\",\\\"needForm\\\":false,\\\"assignedSequence\\\":1,\\\"authLevel\\\":\\\"0\\\",\\\"metadata\\\":\\\"{\\\\\\\"id\\\\\\\":\\\\\\\"0\\\\\\\",\\\\\\\"position\\\\\\\":0,\\\\\\\"ip\\\\\\\":\\\\\\\"::ffff:10.10.9.198\\\\\\\"}\\\",\\\"status\\\":\\\"ED_FAIL_REJECT\\\",\\\"wsid\\\":\\\"WSID_EPAR_0000016878b3f11200d8611392780001\\\",\\\"handleDatetime\\\":1548213420000,\\\"handleReason\\\":\\\"\\\\u6D4B\\\\u8BD5\\\"},\\\"returnUrl\\\":\\\"https://return.qq.com/XXXX\\\",\\\"links\\\":[]}\",\"needCallBack\":false}";
         String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
         String appId = "1678bc2091000d861138f74aa51";
-        String nonce = "yZIAsVFMzl1GTVoe0suis77p";
-        String dateString = "Tue Dec 11 16:20:02 CST 2018";
+        String nonce = "BbYJtgX11vhu2oxQ3diaMgl2";
+        String dateString = "Wed Jan 23 11:17:31 CST 2019";
         String host = "localhost:8080";
-        String protocol = "HTTP/1.1";
+        String scheme = "http";
 
         String signitSignature = null;// "HmacSHA512
                                       // 1678bc2091000d861138f74aa51:sYurqlP8S2qCy8bvjE1hxAfi361qVZt5ZmaCreYqfy0FciVzNz8q/pPVQcrd1kPGqmB7beDh1f2NVzlwjfbDlw==";
         HmacSignatureBuilder builder = new HmacSignatureBuilder();
-        builder.scheme(protocol)
+        builder.scheme(scheme)
                 .apiKey(appId)
                 .apiSecret(appSecretKey.getBytes())
                 .method("POST")
@@ -103,9 +128,11 @@ public class WebhookResponseParseByRequestDemo {
         conn.setRequestProperty("X-Signit-Signature", signitSignature);
         conn.setRequestProperty("X-Signit-Nonce", nonce);
         conn.setRequestProperty("X-Signit-Date", dateString);
-        conn.setRequestProperty("X-Signit-Event", "enterpriseVerificationSubmitted");
-        conn.setRequestProperty("X-Signit-User_Agent", "Signit HTTP");
-        conn.setRequestProperty("Host", host);
+        conn.setRequestProperty("X-Signit-Event", "PARTICIPANT_REJECTED");
+        conn.setRequestProperty("X-Signit-Resource", "");
+        conn.setRequestProperty("User-Agent", "Signit HTTP");
+        conn.setRequestProperty("X-Signit-Host", host);
+        conn.setRequestProperty("X-Signit-Scheme", scheme);
         conn.setConnectTimeout(5000);
         conn.setReadTimeout(30000);
         conn.setRequestMethod("POST");
@@ -141,4 +168,75 @@ public class WebhookResponseParseByRequestDemo {
 
     }
 
+    
+    // 模拟易企签 发送给客户端 webhook响应数据
+    public static void sendHttpRequest2() throws IOException {
+        String enteVerifyWebhookRespStr = "{\"event\":\"participantRejected\",\"target\":{\"webhookWsid\":\"WSID_HOOK_000001678bc29d510242ac1400030001\",\"destination\":\"https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\"},\"rawData\":\"{\\\"code\\\":\\\"100600000\\\",\\\"message\\\":\\\"\\\\u64CD\\\\u4F5C\\\\u6210\\\\u529F\\\",\\\"actionUrl\\\":\\\"http://10.10.9.67:61112/WSID_LINK_0000016878b6004f22c91cdc09520001/open-flow-envelope?token=03875e09d6b94c6098c4b3bf42e8e13b\\\",\\\"actions\\\":[\\\"CHECK\\\",\\\"SIGN\\\",\\\"VIEW\\\"],\\\"account\\\":\\\"18380581554\\\",\\\"customTag\\\":\\\"C130018122503922\\\",\\\"invokeNo\\\":\\\"201901231114463824001724586001\\\",\\\"basicEnvelope\\\":{\\\"wsid\\\":\\\"WSID_ENVE_0000016878b329d1e294b6c7f50d0001\\\",\\\"status\\\":\\\"ED_FAIL_REJECT\\\",\\\"createdDatetime\\\":1548213287000,\\\"expireDatetime\\\":1579749287000,\\\"statusDatetime\\\":1548213420000,\\\"statusReason\\\":\\\"\\\\u6D4B\\\\u8BD5\\\",\\\"currentSequence\\\":1},\\\"senderParticipant\\\":{\\\"name\\\":\\\"\\\\u5218\\\\u6E05\\\\u534E\\\",\\\"contactMetadata\\\":{\\\"contacts\\\":[{\\\"email\\\":\\\"\\\",\\\"sms\\\":\\\"18681695956\\\"}]}},\\\"receiverParticipant\\\":{\\\"name\\\":\\\"\\\\u5F20\\\\u6CE2\\\",\\\"contactMetadata\\\":{\\\"contacts\\\":[{\\\"sms\\\":\\\"18380581554\\\"}]},\\\"secureLevel\\\":\\\"DISPOSABLE_CERT\\\",\\\"type\\\":\\\"SIGNER\\\",\\\"roleType\\\":\\\"PERSON\\\",\\\"needForm\\\":false,\\\"assignedSequence\\\":1,\\\"authLevel\\\":\\\"0\\\",\\\"metadata\\\":\\\"{\\\\\\\"id\\\\\\\":\\\\\\\"0\\\\\\\",\\\\\\\"position\\\\\\\":0,\\\\\\\"ip\\\\\\\":\\\\\\\"::ffff:10.10.9.198\\\\\\\"}\\\",\\\"status\\\":\\\"ED_FAIL_REJECT\\\",\\\"wsid\\\":\\\"WSID_EPAR_0000016878b3f11200d8611392780001\\\",\\\"handleDatetime\\\":1548213420000,\\\"handleReason\\\":\\\"\\\\u6D4B\\\\u8BD5\\\"},\\\"returnUrl\\\":\\\"https://return.qq.com/XXXX\\\",\\\"links\\\":[]}\",\"needCallBack\":false}";
+        String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
+        String appId = "1678bc2091000d861138f74aa51";
+        String nonce = "BbYJtgX11vhu2oxQ3diaMgl2";
+        String dateString = "Wed Jan 23 11:17:31 CST 2019";
+        String host = "localhost:8080";
+        String scheme = "http";
+
+        String signitSignature = null;// "HmacSHA512
+                                      // 1678bc2091000d861138f74aa51:sYurqlP8S2qCy8bvjE1hxAfi361qVZt5ZmaCreYqfy0FciVzNz8q/pPVQcrd1kPGqmB7beDh1f2NVzlwjfbDlw==";
+        HmacSignatureBuilder builder = new HmacSignatureBuilder();
+        builder.scheme(scheme)
+                .apiKey(appId)
+                .apiSecret(appSecretKey.getBytes())
+                .method("POST")
+                .payload(enteVerifyWebhookRespStr.getBytes())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .host(host)
+                .resource("")
+                .nonce(nonce)
+                .date(dateString);
+        signitSignature = builder.getDefaultAlgorithm() + " " + appId + ":" + builder.buildAsBase64();
+
+        URL url = new URL("http://localhost:8080/test/parse-webhook-withbody");
+        final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setRequestProperty("X-Signit-Signature", signitSignature);
+        conn.setRequestProperty("X-Signit-Nonce", nonce);
+        conn.setRequestProperty("X-Signit-Date", dateString);
+        conn.setRequestProperty("X-Signit-Event", "PARTICIPANT_REJECTED");
+        conn.setRequestProperty("X-Signit-Resource", "");
+        conn.setRequestProperty("User-Agent", "Signit HTTP");
+        conn.setRequestProperty("X-Signit-Host", host);
+        conn.setRequestProperty("X-Signit-Scheme", scheme);
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(30000);
+        conn.setRequestMethod("POST");
+
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        conn.setUseCaches(false);
+
+        conn.connect();
+        // 获取URLConnection对象对应的输出流
+        byte[] buffer = enteVerifyWebhookRespStr.getBytes();
+        OutputStream out = conn.getOutputStream();
+
+        PrintWriter pw = new PrintWriter(out);
+        pw.print(out.toString());
+
+        out.write(buffer, 0, buffer.length);
+        out.flush();
+
+        Thread thread = new Thread(new Runnable() {
+
+            public void run() {
+                try {
+                    conn.getInputStream();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+    }
 }
