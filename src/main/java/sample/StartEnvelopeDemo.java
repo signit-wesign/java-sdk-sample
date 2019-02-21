@@ -49,9 +49,8 @@ public class StartEnvelopeDemo {
         String appId = "16903be96b002428f616806f5c1";
 
         // String appUrl = "https://open.signit.cn/v1/open/envelopes";
-        // String appUrl = "http://10.10.9.70:2576/v1/open/envelopes/start";//
-        // 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
-        String appUrl = "http://10.10.9.148:7830/envelopes/start";
+        String appUrl = "http://10.10.9.70:2576/v1/open/envelopes/start";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
+
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
         client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
