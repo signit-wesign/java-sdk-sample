@@ -53,7 +53,7 @@ public class WebhookResponseParseDemo {
             // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
             // 法1：
             EnterpriseVerificationSubmitted rawData1 = (EnterpriseVerificationSubmitted) ente.rawDataAsBean();
-           boolean s= rawData1.isSuccess();
+            boolean s = rawData1.isSuccess();
             // 法2：
             EnterpriseVerificationSubmitted rawDat2 = ente.rawDataAsBean(EnterpriseVerificationSubmitted.class);
             break;
@@ -87,5 +87,4 @@ public class WebhookResponseParseDemo {
 
         System.out.println("\nwebhookResponse is :\n" + JSON.toJSONString(ente, true));
     }
-
 }

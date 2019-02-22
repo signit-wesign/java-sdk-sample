@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.SpringApplication;
@@ -43,23 +42,19 @@ public class WebhookResponseParseByRequestDemo {
     public static class CatchWebhookResponse {
         // 使用 request 验证并解析响应数据
         @PostMapping("test/parse-webhook")
-        public void testVerifyAndParseWebhookResponse(HttpServletRequest request) throws IOException {
-            request.setCharacterEncoding("UTF-8");
-            int len = request.getContentLength();
-            ServletInputStream iii = request.getInputStream();
-            byte[] body = new byte[len];
-            iii.read(body, 0, len);
+        public void testVerifyAndParseWebhookResponse(HttpServletRequest request, @RequestBody String body)
+                throws IOException {
 
             String appId = "1678bc2091000d861138f74aa51";
             String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
 
             // step1 : 客户端验证服务端
-            boolean verifyResult = SignitClient.verify(appId, appSecretKey, body, request);
+            boolean verifyResult = SignitClient.verify(appId, appSecretKey, body.getBytes(), request);
 
             System.out.println("\n\nthe result of hmac verify is " + verifyResult);
 
             // step2: 解析webhook响应数据
-            WebhookResponse ente = SignitClient.parseWebhookResponse(new String(body));
+            WebhookResponse ente = SignitClient.parseWebhookResponse(body);
             System.out.println("\nwebhookResponse is :\n" + JSON.toJSONString(ente, true));
 
         }
@@ -122,6 +117,8 @@ public class WebhookResponseParseByRequestDemo {
                 .date(dateString);
         signitSignature = builder.getDefaultAlgorithm() + " " + appId + ":" + builder.buildAsBase64();
 
+        // 通过java发起请求时不允许重写标准头的，但是此处为了保证解析时动态获取的host是webhook.site，就使用此方法。
+        System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         URL url = new URL("http://localhost:8080/test/parse-webhook");
         final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestProperty("Content-Type", "application/json");

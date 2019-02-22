@@ -27,18 +27,18 @@ import cn.signit.sdk.util.FastjsonDecoder;
  */
 public class EnterpriseVerifyDemo {
     public static void main(String[] args) throws SignitException {
-        // https://webhook.site 可以在该网站上申请webhook地址用于测试
-        // 本次测试webhook地址 https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06
-        String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
-        String appId = "1678bc2091000d861138f74aa51";
-
-        // String appUrl = "https://open.signit.cn/v1/open/verifications/enterprise";
-        String appUrl = "http://10.10.9.70:2576/v1/open/verifications/enterprise";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
+        // https://webhook.site
+        // webhook 地址 https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06
+        // webhook地址
+        // http://openapit.tongwei.com:8000/api/permit-openbusi/transfer/transfer2SubSys?BIZ_CODE=10001
+        String appSecretKey = "sk23881d0f62799a8a2353c14258136a96";
+        String appId = "167aba734840242ac1300069ed1";
+        String appUrl = "http://112.44.251.136:2576/v1/open/verifications/enterprise";
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
-        client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
-
+        // 测试环境需要手动设置oauthUrl，生产环境不用设置
+        client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
         EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
@@ -98,7 +98,6 @@ public class EnterpriseVerifyDemo {
                                 .imageCode(ImageCode.AGENT_TRUST)
                                 .imageData(IdCardImageData.builder()
                                         .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E5%A7%94%E6%89%98%E4%B9%A6%E6%BC%94%E7%A4%BA%E7%A4%BA%E4%BE%8B.docx")))
-
                 )
                 .unifiedSocialCode("91510700595072782J")
                 .businessLicenceImage(IdCardImage.builder()
