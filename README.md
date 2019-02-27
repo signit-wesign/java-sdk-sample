@@ -1,7 +1,7 @@
 
 # 易企签 Java SDK 示例
 
-易企签Java sdk调用示例，包括**快捷签署**等功能
+易企签Java sdk调用示例，包括**快捷签署**，**提交企业实名认证（即：开通电子签约服务）**，**启动信封签署流程**等功能
 
 # 环境要求
 Java 1.6 or later.
@@ -15,17 +15,17 @@ Java 1.6 or later.
 ### 2、设置webhook地址
 sdk中部分功能需要依托webhook传递数据，所以需要设置一个webhook地址。如果webhook地址测试不通过，服务端将无法返回处理后的数据给客户端。
 
-为了方便开发者进行调试，可以访问[https://request.worktile.com](https://request.worktile.com)生成URL地址作为webhook地址，如[https://request.worktile.com/B1pD7CwHX](https://request.worktile.com/B1pD7CwHX)，调用应用功能如快捷签署成功后，前往[https://request.worktile.com/B1pD7CwHX/inspect](https://request.worktile.com/B1pD7CwHX/inspect)查看接收到的webhook信息
+为了方便开发者进行调试，可以访问[https://webhook.site/](https://webhook.site/)生成URL地址作为webhook地址，如[https://webhook.site/54972912-22b5-4894-a640-3069671404ed](https://webhook.site/54972912-22b5-4894-a640-3069671404ed)，调用应用功能（如：“快捷签署”）成功后，就会实时查看接收到的webhook信息
 
 # 安装方式
 
 
 ### Maven
 
-	<dependency>
+    <dependency>
 		<groupId>cn.signit.sdk</groupId>
 		<artifactId>signit-java-sdk</artifactId>
-		<version>1.0.1</version>
+		<version>2.0.0</version>
 	</dependency>
 
 ### 源码
@@ -39,3 +39,26 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
 无需将文件上传到易企签平台，只需要在sdk中设置待签名的文件以及签名数据，调用快捷签署接口，即可在开放平台设置的webhook地址中的接收到签名后的文件
 
 [快捷签署调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/QuickSignatureDemo.java)
+
+### 2、提交企业实名认证（即：开通电子签约服务）
+企业实名认证完整流程：
+- 调用方通过调用接口提交待认证企业信息到易企签平台
+- 提交成功后将向提交的企业信息中的法人或者经办人手机号发送短信，法人或经办人需要点击短信中链接开始进行认证。
+- 认证过程中，当易企签验证企业信息以及法人或经办人信息属实且有效后，会向企业对公银行账号打款0.01元，并在交易备注中附上4位或6位验证码，同时会向法人或经办人手机号中发送相应提示短信。企业法人或经办人获取到4位或6位验证码后，点击提示短信中的链接进行最后的银行验证码验证。验证通过后即为企业实名认证成功
+- 完成上述操作后，即可开通电子签约服务
+
+[提交企业实名认证调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/EnterpriseVerifyDemo.java)
+
+### 3、启动信封签署流程
+无需进入易企签平台发起信封，调用方通过设置签署流程以及签署人信息，即可发起信封。
+
+[启动信封签署流程调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/StartEnvelopeDemo.java)
+
+### 4、解析webhook响应数据
+在示例中，我们提供对webhook响应数据进行校验和解析的方法。并给出了一种简便的校验和解析方式。
+
+[校验并解析webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/WebhookResponseParseDemo.java)
+
+[通过HttpServletRequest校验并解析webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/WebhookResponseParseByRequestDemo.java)
+
+[校验和并解析各类型webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/webhook/response)
