@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 
 import cn.signit.sdk.SignitClient;
 import cn.signit.sdk.SignitException;
-import cn.signit.sdk.http.Authentication;
 import cn.signit.sdk.pojo.BaseFileData;
 import cn.signit.sdk.pojo.Contact;
 import cn.signit.sdk.pojo.EnvelopeBasicInfo;
@@ -13,7 +12,6 @@ import cn.signit.sdk.pojo.EnvelopeFile;
 import cn.signit.sdk.pojo.EnvelopeParticipantInfo;
 import cn.signit.sdk.pojo.ErrorResp;
 import cn.signit.sdk.pojo.InitialValue;
-import cn.signit.sdk.pojo.OauthData;
 import cn.signit.sdk.pojo.PresetForm;
 import cn.signit.sdk.pojo.Receiver;
 import cn.signit.sdk.pojo.SealData;
@@ -56,7 +54,7 @@ public class StartEnvelopeDemo {
         client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
 
         // step2: 使用SDK封装实名认证请求
-        StartEnvelopeRequest request = startEnvelopeWithQrcode();
+        StartEnvelopeRequest request = startEnvelope();
         System.out.println("request is :\n" + JSON.toJSONString(request, true));
 
         // step3: 执行请求,获得响应
@@ -71,7 +69,6 @@ public class StartEnvelopeDemo {
             System.out.println("\nerror response is:\n" + JSON.toJSONString(errorResp, true));
         }
         System.out.println("\nresponse is:\n" + JSON.toJSONString(response, true));
-
     }
 
     // 启动信封:一个发送者，一个个人接收者（2个手写签名），一个企业接受者（一个公章签名）
@@ -92,7 +89,9 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true))
+                                .deleteCompletedEnvelope(true)
+                                .clientId("sender_tag1")
+                                .enableEmbeddedMode(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
                                 .name("张波")
                                 .assignedSequence(1)
@@ -102,6 +101,8 @@ public class StartEnvelopeDemo {
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(true)
+                                .clientId("receiver_tag1")
+                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127090")
                                         .formType(FormType.WRITE_SIGN)
@@ -143,6 +144,8 @@ public class StartEnvelopeDemo {
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
+                                        .clientId("receiver_tag2")
+                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127090")
                                                 .formType(FormType.SEAL_SIGN)
@@ -193,16 +196,20 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true))
+                                .deleteCompletedEnvelope(true)
+                                .clientId("sender_tag2")
+                                .enableEmbeddedMode(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
-                                .name("张波")
+                                .name("吴涛")
                                 .assignedSequence(1)
                                 .contact(Contact.builder()
-                                        .phone("18380581554"))
+                                        .phone("15881684559"))
                                 .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(true)
+                                .clientId("receiver_tag3")
+                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127091")
                                         .formType(FormType.WRITE_SIGN)
@@ -233,6 +240,8 @@ public class StartEnvelopeDemo {
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
                                         .handleMode(ParticipantHandleMode.SILENCE)
+                                        .clientId("receiver_tag4")
+                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127091")
                                                 .formType(FormType.SEAL_SIGN)
@@ -297,7 +306,9 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true))
+                                .deleteCompletedEnvelope(true)
+                                .clientId("sender_tag3")
+                                .enableEmbeddedMode(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
                                 .name("张波")
                                 .assignedSequence(1)
@@ -307,6 +318,8 @@ public class StartEnvelopeDemo {
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(true)
+                                .clientId("receiver_tag5")
+                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127091")
                                         .formType(FormType.WRITE_SIGN)
@@ -337,6 +350,8 @@ public class StartEnvelopeDemo {
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
                                         .handleMode(ParticipantHandleMode.SILENCE)
+                                        .clientId("receiver_tag6")
+                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127091")
                                                 .formType(FormType.SEAL_SIGN)
@@ -404,7 +419,9 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true))
+                                .deleteCompletedEnvelope(true)
+                                .clientId("sender_tag4")
+                                .enableEmbeddedMode(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
                                 .name("张波")
                                 .assignedSequence(1)
@@ -414,6 +431,8 @@ public class StartEnvelopeDemo {
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(false)
+                                .clientId("receiver_tag7")
+                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127091")
                                         .formType(FormType.WRITE_SIGN)
@@ -444,6 +463,8 @@ public class StartEnvelopeDemo {
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
                                         .handleMode(ParticipantHandleMode.SILENCE)
+                                        .clientId("receiver_tag8")
+                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127091")
                                                 .formType(FormType.SEAL_SIGN)
