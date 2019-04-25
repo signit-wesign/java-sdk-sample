@@ -80,30 +80,6 @@ public class EnterpriseVerifyDemo {
                 .build();
     }
     
-    public static EnterpriseVerifyRequest verifyUseLegelPersonWithLeastParams2() {
-        return EnterpriseVerifyRequest.builder()
-                .name("易企签测试企业")
-                .authType(EnterpriseAuthType.LEGAL_PERSON)
-                .legalPerson(EnterpriseLegalPerson.builder()
-                        .name("张洪东")
-                        .idCardNo("510184199111217311")
-                        .idCardType(IdCardType.SECOND_GENERATION_IDCARD)
-                        .phone("13795956607"))
-                .unifiedSocialCode("91410103341757802J")
-                .businessLicenceImage(IdCardImage.builder()
-                        .imageName("营业执照演示图片.jpg")
-                        .imageCode(ImageCode.BUSINESS_LICENCE)
-                        .imageData(IdCardImageData.builder()
-                                .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E8%90%A5%E4%B8%9A%E6%89%A7%E7%85%A7%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87.jpg")))
-                .bankCardInfo(EnterpriseBankCardInfo.builder()
-                        .bankCardNo("6228480489080786572")
-                        .bankBranch("绵阳市涪城区西科大支行")
-                        .bank("中国农业银行"))
-                .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
-                .acceptDataType(AcceptDataType.URL)
-                .customTag("hello world legal person, this is test")
-                .build();
-    }
 
     public static EnterpriseVerifyRequest verifyUseAgentWithLeastParams() {
         return EnterpriseVerifyRequest.builder()
