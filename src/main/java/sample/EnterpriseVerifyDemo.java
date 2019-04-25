@@ -36,7 +36,7 @@ public class EnterpriseVerifyDemo {
         // 测试环境需要手动设置oauthUrl，生产环境不用设置
         client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
-        EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams2();
+        EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
 
         // step3: 执行请求,获得响应

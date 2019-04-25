@@ -51,7 +51,7 @@ public class StartEnvelopeDemo {
         client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
 
         // step2: 使用SDK封装实名认证请求
-        StartEnvelopeRequest request = startEnvelope();
+        StartEnvelopeRequest request = startEnvelopeWithEmbeddeMode();
         System.out.println("request is :\n" + JSON.toJSONString(request, true));
 
         // step3: 执行请求,获得响应
