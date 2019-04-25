@@ -28,17 +28,15 @@ import cn.signit.sdk.util.FastjsonDecoder;
  */
 public class PersonVerifyDemo {
     public static void main(String[] args) {
-        // https://webhook.site
-        // webhook 地址 https://webhook.site/eda20c6f-119b-4f3a-93d9-b2c71dd9e254
-        String appSecretKey = "sk9d79a9dc5bb91e02a320b50ab78dd43b";
-        String appId = "16903be96b002428f616806f5c1";// 国信易企签科技有限公司
+        String appSecretKey = "sk34acd7f913696b965288f1aabbcf19ad";
+        String appId = "16a543b48463eebbcfde3dd32d1";// 国信易企签科技有限公司
         // String appUrl = "https://open.signit.cn/v1/open/verifications/enterprise";
-        String appUrl = "http://10.10.9.70:2576/v1/open/verifications/person";//生产环境使用上面的链接
+        String appUrl = "http://112.44.251.136:2576/v1/open/verifications/person";//生产环境使用上面的链接
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
         // 测试环境需要手动设置oauthUrl，生产环境不用设置
-        client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");
+        client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
         PersonVerifyRequest request = verifyPersonParam();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
@@ -81,7 +79,7 @@ public class PersonVerifyDemo {
                                 .imageCode(ImageCode.PERSON_HANDHELD_ID_CARD_BACK)
                                 .imageData(IdCardImageData.builder()
                                         .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E6%89%8B%E6%8C%81%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BA%BA%E5%83%8F%E9%9D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.jpg")))
-                .returnUrl("www.baidu.com")
+                .returnUrl("https://www.baidu.com")
                 .acceptDataType(AcceptDataType.URL)
                 .customTag("1 tag" + new Date().toString())
                 .build();

@@ -27,12 +27,8 @@ import cn.signit.sdk.util.FastjsonDecoder;
  */
 public class EnterpriseVerifyDemo {
     public static void main(String[] args) throws SignitException {
-        // https://webhook.site
-        // webhook 地址 https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06
-        // webhook地址
-        // http://openapit.tongwei.com:8000/api/permit-openbusi/transfer/transfer2SubSys?BIZ_CODE=10001
-        String appSecretKey = "sk23881d0f62799a8a2353c14258136a96";
-        String appId = "167aba734840242ac1300069ed1";
+        String appSecretKey = "sk34acd7f913696b965288f1aabbcf19ad";
+        String appId = "16a543b48463eebbcfde3dd32d1";
         String appUrl = "http://112.44.251.136:2576/v1/open/verifications/enterprise";
 
         // step1: 初始化易企签开放平台客户端
@@ -40,7 +36,7 @@ public class EnterpriseVerifyDemo {
         // 测试环境需要手动设置oauthUrl，生产环境不用设置
         client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
-        EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams();
+        EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams2();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
 
         // step3: 执行请求,获得响应
@@ -68,6 +64,31 @@ public class EnterpriseVerifyDemo {
                         .idCardNo("511324199110124864")
                         .idCardType(IdCardType.SECOND_GENERATION_IDCARD)
                         .phone("13281522860"))
+                .unifiedSocialCode("91410103341757802J")
+                .businessLicenceImage(IdCardImage.builder()
+                        .imageName("营业执照演示图片.jpg")
+                        .imageCode(ImageCode.BUSINESS_LICENCE)
+                        .imageData(IdCardImageData.builder()
+                                .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E8%90%A5%E4%B8%9A%E6%89%A7%E7%85%A7%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87.jpg")))
+                .bankCardInfo(EnterpriseBankCardInfo.builder()
+                        .bankCardNo("6228480489080786572")
+                        .bankBranch("绵阳市涪城区西科大支行")
+                        .bank("中国农业银行"))
+                .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
+                .acceptDataType(AcceptDataType.URL)
+                .customTag("hello world legal person, this is test")
+                .build();
+    }
+    
+    public static EnterpriseVerifyRequest verifyUseLegelPersonWithLeastParams2() {
+        return EnterpriseVerifyRequest.builder()
+                .name("易企签测试企业")
+                .authType(EnterpriseAuthType.LEGAL_PERSON)
+                .legalPerson(EnterpriseLegalPerson.builder()
+                        .name("张洪东")
+                        .idCardNo("510184199111217311")
+                        .idCardType(IdCardType.SECOND_GENERATION_IDCARD)
+                        .phone("13795956607"))
                 .unifiedSocialCode("91410103341757802J")
                 .businessLicenceImage(IdCardImage.builder()
                         .imageName("营业执照演示图片.jpg")
