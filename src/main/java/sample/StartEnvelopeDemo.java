@@ -40,18 +40,15 @@ import cn.signit.sdk.util.FastjsonDecoder;
  */
 public class StartEnvelopeDemo {
     public static void main(String[] args) throws SignitException {
-        // https://webhook.site 可以在该网站上申请webhook地址用于测试
-        // 本次测试webhook地址
-        // https://webhook.site/eda20c6f-119b-4f3a-93d9-b2c71dd9e254
-        String appSecretKey = "sk9d79a9dc5bb91e02a320b50ab78dd43b";
-        String appId = "16903be96b002428f616806f5c1";
+        String appSecretKey = "sk34acd7f913696b965288f1aabbcf19ad";
+        String appId = "16a543b48463eebbcfde3dd32d1";
 
         // String appUrl = "https://open.signit.cn/v1/open/envelopes";
-        String appUrl = "http://10.10.9.70:2576/v1/open/envelopes/start";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
+        String appUrl = "http://112.44.251.136:2576/v1/open/envelopes/start";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
-        client.setOauthUrl("http://10.10.9.70:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
+        client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
 
         // step2: 使用SDK封装实名认证请求
         StartEnvelopeRequest request = startEnvelope();
@@ -89,9 +86,7 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true)
-                                .clientId("sender_tag1")
-                                .enableEmbeddedMode(true))
+                                .deleteCompletedEnvelope(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
                                 .name("张波")
                                 .assignedSequence(1)
@@ -101,8 +96,6 @@ public class StartEnvelopeDemo {
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(true)
-                                .clientId("receiver_tag1")
-                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127090")
                                         .formType(FormType.WRITE_SIGN)
@@ -138,14 +131,12 @@ public class StartEnvelopeDemo {
                                         .assignedSequence(2)
                                         .contact(Contact.builder()
                                                 .phone("18681695956"))
-                                        .enterpriseName("刘清华的测试企业")
+                                        .enterpriseName("易企签测试企业")
                                         .name("刘清华")
                                         .needForm(false)
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
-                                        .clientId("receiver_tag2")
-                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127090")
                                                 .formType(FormType.SEAL_SIGN)
@@ -169,7 +160,7 @@ public class StartEnvelopeDemo {
                                                 .initialValue(InitialValue.builder()
                                                         .renderingMode(RenderMode.GRAPHIC)
                                                         .sealData(SealData.builder()
-                                                                .withName("刘清华的测试企业"))))
+                                                                .withName("易企签测试企业"))))
 
                         ))
                 .returnUrl("https://return.qq.com/XXXX")
@@ -196,9 +187,7 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true)
-                                .clientId("sender_tag2")
-                                .enableEmbeddedMode(true))
+                                .deleteCompletedEnvelope(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
                                 .name("吴涛")
                                 .assignedSequence(1)
@@ -208,8 +197,6 @@ public class StartEnvelopeDemo {
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(true)
-                                .clientId("receiver_tag3")
-                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127091")
                                         .formType(FormType.WRITE_SIGN)
@@ -233,15 +220,13 @@ public class StartEnvelopeDemo {
                                         .assignedSequence(2)
                                         .contact(Contact.builder()
                                                 .phone("18681695956"))
-                                        .enterpriseName("刘清华的测试企业")
+                                        .enterpriseName("易企签测试企业")
                                         .name("刘清华")
                                         .needForm(false)
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
                                         .handleMode(ParticipantHandleMode.SILENCE)
-                                        .clientId("receiver_tag4")
-                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127091")
                                                 .formType(FormType.SEAL_SIGN)
@@ -265,7 +250,7 @@ public class StartEnvelopeDemo {
                                                 .initialValue(InitialValue.builder()
                                                         .renderingMode(RenderMode.GRAPHIC)
                                                         .sealData(SealData.builder()
-                                                                .withName("刘清华的测试企业"))),
+                                                                .withName("易企签测试企业"))),
                                                 PresetForm.builder()
                                                         .formType(FormType.TEXT)
                                                         .fileId("127091")
@@ -306,9 +291,7 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true)
-                                .clientId("sender_tag3")
-                                .enableEmbeddedMode(true))
+                                .deleteCompletedEnvelope(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
                                 .name("张波")
                                 .assignedSequence(1)
@@ -318,8 +301,6 @@ public class StartEnvelopeDemo {
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(true)
-                                .clientId("receiver_tag5")
-                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127091")
                                         .formType(FormType.WRITE_SIGN)
@@ -343,15 +324,13 @@ public class StartEnvelopeDemo {
                                         .assignedSequence(2)
                                         .contact(Contact.builder()
                                                 .phone("18681695956"))
-                                        .enterpriseName("刘清华的测试企业")
+                                        .enterpriseName("易企签测试企业")
                                         .name("刘清华")
                                         .needForm(false)
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
                                         .handleMode(ParticipantHandleMode.SILENCE)
-                                        .clientId("receiver_tag6")
-                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127091")
                                                 .formType(FormType.SEAL_SIGN)
@@ -375,7 +354,7 @@ public class StartEnvelopeDemo {
                                                 .initialValue(InitialValue.builder()
                                                         .renderingMode(RenderMode.GRAPHIC)
                                                         .sealData(SealData.builder()
-                                                                .withName("刘清华的测试企业"))),
+                                                                .withName("易企签测试企业"))),
                                                 PresetForm.builder()
                                                         .formType(FormType.MULTI_CHECK_MARK)
                                                         .fileId("127091")
@@ -391,7 +370,7 @@ public class StartEnvelopeDemo {
                                                         .initialValue(InitialValue.builder()
                                                                 .renderingMode(RenderMode.GRAPHIC)
                                                                 .sealData(SealData.builder()
-                                                                        .withName("刘清华的测试企业")))
+                                                                        .withName("易企签测试企业")))
                                                         .revisable(true))
 
                         ))
@@ -419,9 +398,7 @@ public class StartEnvelopeDemo {
                                 .name("刘清华")
                                 .contact(Contact.builder()
                                         .phone("18681695956"))
-                                .deleteCompletedEnvelope(true)
-                                .clientId("sender_tag4")
-                                .enableEmbeddedMode(true))
+                                .deleteCompletedEnvelope(true))
                         .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
                                 .name("张波")
                                 .assignedSequence(1)
@@ -431,8 +408,6 @@ public class StartEnvelopeDemo {
                                 .type(ReceiverType.SIGNER)
                                 .roleType(EnvelopeRoleType.PERSON)
                                 .deleteCompletedEnvelope(false)
-                                .clientId("receiver_tag7")
-                                .enableEmbeddedMode(true)
                                 .presetForms(PresetForm.builder()
                                         .fileId("127091")
                                         .formType(FormType.WRITE_SIGN)
@@ -456,15 +431,13 @@ public class StartEnvelopeDemo {
                                         .assignedSequence(2)
                                         .contact(Contact.builder()
                                                 .phone("18681695956"))
-                                        .enterpriseName("刘清华的测试企业")
+                                        .enterpriseName("易企签测试企业")
                                         .name("刘清华")
                                         .needForm(false)
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
                                         .secureLevel(SecureLevel.DISPOSABLE_CERT)
                                         .type(ReceiverType.SIGNER)
                                         .handleMode(ParticipantHandleMode.SILENCE)
-                                        .clientId("receiver_tag8")
-                                        .enableEmbeddedMode(true)
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127091")
                                                 .formType(FormType.SEAL_SIGN)
@@ -488,7 +461,7 @@ public class StartEnvelopeDemo {
                                                 .initialValue(InitialValue.builder()
                                                         .renderingMode(RenderMode.GRAPHIC)
                                                         .sealData(SealData.builder()
-                                                                .withName("刘清华的测试企业"))),
+                                                                .withName("易企签测试企业"))),
                                                 PresetForm.builder()
                                                         .formType(FormType.MULTI_QRCODE_MARK)
                                                         .fileId("127091")
@@ -504,6 +477,114 @@ public class StartEnvelopeDemo {
                 .returnUrl("https://www.baidu.com")
                 .acceptDataType(AcceptDataType.URL)
                 .customTag("C130018122503924" + System.currentTimeMillis())
+                .build();
+    }
+    
+
+    // 结合网页嵌入模式启动信封，签署时免登陆以及屏蔽短信等通知消息；一个发送者，一个个人接收者（2个手写签名），一个企业接受者（一个公章签名）
+    public static StartEnvelopeRequest startEnvelopeWithEmbeddeMode() {
+        return StartEnvelopeRequest.builder()
+                .basicinfo(EnvelopeBasicInfo.builder()
+                        .title("title")
+                        .subject("subject"))
+                .contentInfo(EnvelopeContentInfo.builder()
+                        .files(EnvelopeFile.builder()
+                                .id("127090")
+                                .sequence(1)
+                                .data(BaseFileData.builder()
+                                        .url("https://raw.githubusercontent.com/enHb7/Yiqiqian/master/%E5%81%87%E6%9C%9F%E7%95%99%E6%A0%A1%E4%BD%8F%E5%AE%BF%E5%AD%A6%E7%94%9F%E5%AE%89%E5%85%A8%E8%B4%A3%E4%BB%BB%E4%B9%A6%EF%BC%88%E5%AE%9E%E9%AA%8C%E5%AE%A4%E5%AD%A6%E4%B9%A0%EF%BC%89.docx"))
+                                .isAttached(false)))
+                .participantInfo(EnvelopeParticipantInfo.builder()
+                        .sender(Sender.builder()
+                                .name("刘清华")
+                                .contact(Contact.builder()
+                                        .phone("18681695956"))
+                                .deleteCompletedEnvelope(true)
+                                .enableEmbeddedMode(true)// 网页嵌入模式，实现免登陆以及屏蔽短信等通知消息
+                                .clientId("sender_client_id1"))
+                        .receivers(Receiver.builder()// 参与者可以设置多个，此处仅设置了一个
+                                .name("张波")
+                                .assignedSequence(1)
+                                .contact(Contact.builder()
+                                        .phone("18380581554"))
+                                .secureLevel(SecureLevel.DISPOSABLE_CERT)
+                                .type(ReceiverType.SIGNER)
+                                .roleType(EnvelopeRoleType.PERSON)
+                                .deleteCompletedEnvelope(true)
+                                .enableEmbeddedMode(true)
+                                .clientId("receriver_client_id1")
+                                .presetForms(PresetForm.builder()
+                                        .fileId("127090")
+                                        .formType(FormType.WRITE_SIGN)
+                                        .position(Position.builder()
+                                                .withRectanglePosition(RectanglePosition.builder()
+                                                        .withLrx(251.0f)
+                                                        .withLry(270.0f)
+                                                        .withUlx(151.0f)
+                                                        .withUly(220.0f)
+                                                        .withPage(2)))
+                                        .revisable(true)
+                                        .scale(1.0f),
+                                        PresetForm.builder()
+                                                .formType(FormType.WRITE_SIGN)
+                                                .fileId("127090")
+                                                .position(Position.builder()
+                                                        .withKeywordPosition(KeywordPosition.builder()
+                                                                .withWidth(100.0f)
+                                                                .withRelativeWidthRatio(1.0f)
+                                                                .withHeight(50.0f)
+                                                                .withRelativeHeightRatio(1.0f)
+                                                                .withDirection(Direction.RIGHT)
+                                                                .withOffset(1.0f)
+                                                                .withRelativeOffsetRatio(0.1f)
+                                                                .withXOffset(0f)
+                                                                .withYOffset(20f)
+                                                                .withKeyword("学生签名：")
+                                                                .withPages("all")
+                                                                .withIndex(0)))
+                                                .scale(1.0f)
+                                                .revisable(true)),
+                                Receiver.builder()
+                                        .assignedSequence(2)
+                                        .contact(Contact.builder()
+                                                .phone("18681695956"))
+                                        .enterpriseName("易企签测试企业")
+                                        .name("刘清华")
+                                        .needForm(false)
+                                        .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
+                                        .secureLevel(SecureLevel.DISPOSABLE_CERT)
+                                        .type(ReceiverType.SIGNER)
+                                        .enableEmbeddedMode(true)
+                                        .clientId("receriver_client_id1")
+                                        .presetForms(PresetForm.builder()
+                                                .fileId("127090")
+                                                .formType(FormType.SEAL_SIGN)
+                                                .revisable(false)
+                                                .scale(1.0f)
+                                                .tagId("customTagId1")
+                                                .position(Position.builder()
+                                                        .withKeywordPosition(KeywordPosition.builder()
+                                                                .withWidth(70f)
+                                                                .withRelativeWidthRatio(1.0f)
+                                                                .withHeight(70f)
+                                                                .withRelativeHeightRatio(1.0f)
+                                                                .withDirection(Direction.RIGHT)
+                                                                .withOffset(1.0f)
+                                                                .withRelativeOffsetRatio(0.1f)
+                                                                .withXOffset(0f)
+                                                                .withYOffset(20f)
+                                                                .withKeyword("老师签名：")
+                                                                .withPages("all")
+                                                                .withIndex(0)))
+                                                .initialValue(InitialValue.builder()
+                                                        .renderingMode(RenderMode.GRAPHIC)
+                                                        .sealData(SealData.builder()
+                                                                .withName("易企签测试企业"))))
+
+                        ))
+                .returnUrl("https://return.qq.com/XXXX")
+                .acceptDataType(AcceptDataType.URL)
+                .customTag("C130018122503922")
                 .build();
     }
 }
