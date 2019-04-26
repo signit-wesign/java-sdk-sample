@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import cn.signit.sdk.SignitClient;
 import cn.signit.sdk.pojo.webhook.response.ParticipantHandling;
 import cn.signit.sdk.pojo.webhook.response.PersonVerificationCompleted;
+import cn.signit.sdk.pojo.webhook.response.QuickSignCompleted;
 import cn.signit.sdk.pojo.webhook.response.WebhookResponse;
 import cn.signit.sdk.type.WebhookEventType;
 import cn.signit.sdk.util.HmacSignatureBuilder;
@@ -88,6 +89,9 @@ public class ParsePersonVerifyCompletedDemo {
             break;
         // 参与者正在处理信封
         case PARTICIPANT_HANDLING:
+            break;
+        //快捷签署完成事件
+        case QUICK_SIGN_COMPLETED:
             break;
         default:
             break;

@@ -3,7 +3,7 @@ package webhook.response;
 import com.alibaba.fastjson.JSON;
 
 import cn.signit.sdk.SignitClient;
-import cn.signit.sdk.pojo.webhook.response.EnterpriseVerificationPrimaryCompleted;
+import cn.signit.sdk.pojo.webhook.response.QuickSignCompleted;
 import cn.signit.sdk.pojo.webhook.response.WebhookResponse;
 import cn.signit.sdk.type.WebhookEventType;
 import cn.signit.sdk.util.HmacSignatureBuilder;
@@ -15,18 +15,18 @@ import cn.signit.sdk.util.HmacSignatureBuilder;
  * 示例代码中的appId，appSecretKey，appUrl均为测试环境参数，实际运行时需要将相关参数修改为生产环境参数
  * 更多信息详见：https://github.com/signit-wesign/java-sdk-sample/tree/master/src/main/java/sample
  */
-public class ParseEnterpriseVerificationPrimaryCompletedDemo {
+public class ParseQuickSignCompletedDemo {
     public static void main(String[] args) {
 
-        String personVerifyWebhookRespStr = "{\"event\":\"enterpriseVerificationPrimaryCompleted\",\"target\":{\"webhookWsid\":\"WSID_HOOK_000001678bc29d510242ac1400030001\",\"destination\":\"https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\"},\"rawData\":\"{\\\"code\\\":\\\"100550000\\\",\\\"message\\\":\\\"\\\\u8BF7\\\\u6C42\\\\u6210\\\\u529F\\\",\\\"customTag\\\":\\\"hello world legal People:https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06\\\",\\\"invokeNo\\\":\\\"201812231139168608001765203001\\\",\\\"status\\\":\\\"WAITING_SUM\\\",\\\"description\\\":\\\"\\\\u65E0\\\",\\\"submitDatetime\\\":1545536383,\\\"handleDatetime\\\":1545746821,\\\"links\\\":[]}\",\"needCallBack\":false}";
-        String appSecretKey = "sk9120dcdab8b05d08f8c53815dc953756";
-        String appId = "1678bc2091000d861138f74aa51";
+        String personVerifyWebhookRespStr = "{\"event\":\"quickSignCompleted\",\"target\":{\"webhookWsid\":\"WSID_HOOK_0000016a575d67db02426e4f9f9b0001\",\"destination\":\"https://webhook.site/78cfb508-7a94-4728-94a5-31b758206466\"},\"rawData\":\"{\\\"code\\\":\\\"100550000\\\",\\\"message\\\":\\\"\\\\u8BF7\\\\u6C42\\\\u6210\\\\u529F\\\",\\\"url\\\":\\\"http://10.10.9.67:61112/WSID_LINK_0000016a575e18fa02426e4f9f9b0001/download-file?token=8f72ee3e374f42b1bedbad47d6ef9fcc\\\",\\\"invokeNo\\\":\\\"201904260958572484001690651001\\\",\\\"links\\\":[]}\",\"needCallBack\":false}";
+        String appSecretKey = "sk1c4c0b8dd9558615c2d0aa352c31e0fe";
+        String appId = "16a575d060b02426e4f9f9b7d81";
         // webhook响应header中x-signit-signature
-        String signitSignature = "HmacSHA512 1678bc2091000d861138f74aa51:jCH3RI/HyDFBkdQbMz0KACd79dX3Gwkf7WSqFg+8TYV93eQ0k7Dnwqy95wDVrqfQbrIqe3MEwTUvWX/14WAb1w==";
+        String signitSignature = "HmacSHA512 16a575d060b02426e4f9f9b7d81:w2GAJZl+myuJ5l6n1Agczo5oNPhXit3yuI+3zp96PEq/Kt/N8oWcTt8G8v35PsCTNg5ztFEzh5ZQ/B4/gmCgkQ==";
         // webhook响应header中x-signit-nonce
-        String nonce = "EEenEhg70ZkvPx7l5896rMb1";
+        String nonce = "l0Y47YI9EQ36c21KV3U1TzKQ";
         // webhook响应header中x-signit-date
-        String dataString = "Tue Dec 25 22:07:02 CST 2018";
+        String dataString = "Fri Apr 26 09:59:05 CST 2019";
         // webhook响应header中host
         String host = "webhook.site";
 
@@ -54,15 +54,6 @@ public class ParseEnterpriseVerificationPrimaryCompletedDemo {
             break;
         // 企业实名认证初级完成
         case ENTERPRISE_VERIFICATION_PRIMARY_COMPLETED:
-            // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
-            // 法1：
-            EnterpriseVerificationPrimaryCompleted rawData1 = (EnterpriseVerificationPrimaryCompleted) ente
-                    .rawDataAsBean();
-            boolean s = rawData1.isSuccess();
-            // 法2：
-            EnterpriseVerificationPrimaryCompleted rawDat2 = ente
-                    .rawDataAsBean(EnterpriseVerificationPrimaryCompleted.class);
-            System.out.println("\nwebhookResponse rawData is :\n" + JSON.toJSONString(rawData1, true));
             break;
         // 企业实名认证已打款
         case ENTERPRISE_VERIFICATION_PAID:
@@ -93,6 +84,12 @@ public class ParseEnterpriseVerificationPrimaryCompletedDemo {
             break;
         //快捷签署完成事件
         case QUICK_SIGN_COMPLETED:
+            // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
+            QuickSignCompleted rawData3 = (QuickSignCompleted) ente.rawDataAsBean();
+            boolean s3 = rawData3.isSuccess();
+            // 法2：
+            QuickSignCompleted rawDat4 = ente.rawDataAsBean(QuickSignCompleted.class);
+            System.out.println("\nwebhookResponse rawData is :\n" + JSON.toJSONString(rawData3, true));
             break;
         default:
             break;

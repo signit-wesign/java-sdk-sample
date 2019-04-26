@@ -88,6 +88,9 @@ public class ParsePersonVerificationSubmittedDemo {
         // 参与者正在处理信封
         case PARTICIPANT_HANDLING:
             break;
+        //快捷签署完成事件
+        case QUICK_SIGN_COMPLETED:
+            break;
         default:
             break;
         }

@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.Arrays;
+
 import com.alibaba.fastjson.JSON;
 
 import cn.signit.sdk.SignitClient;
@@ -22,6 +24,7 @@ import cn.signit.sdk.pojo.Signer.Position.RectanglePosition;
 import cn.signit.sdk.pojo.request.StartEnvelopeRequest;
 import cn.signit.sdk.pojo.response.StartEnvelopeResponse;
 import cn.signit.sdk.type.AcceptDataType;
+import cn.signit.sdk.type.AuthType;
 import cn.signit.sdk.type.Direction;
 import cn.signit.sdk.type.EnvelopeRoleType;
 import cn.signit.sdk.type.FormType;
@@ -513,6 +516,7 @@ public class StartEnvelopeDemo {
                                 .deleteCompletedEnvelope(true)
                                 .enableEmbeddedMode(true)
                                 .clientId("receriver_client_id1")
+                                .selectedAuthTypes(Arrays.asList(AuthType.SIGN_PIN, AuthType.SMS_CODE))//参与者签署文件时，验证签署者身份的方式
                                 .presetForms(PresetForm.builder()
                                         .fileId("127090")
                                         .formType(FormType.WRITE_SIGN)
@@ -556,6 +560,8 @@ public class StartEnvelopeDemo {
                                         .type(ReceiverType.SIGNER)
                                         .enableEmbeddedMode(true)
                                         .clientId("receriver_client_id1")
+                                        .selectedAuthTypes(Arrays.asList(AuthType.SIGN_PIN, AuthType.SMS_CODE,
+                                                AuthType.EMAIL_CODE))
                                         .presetForms(PresetForm.builder()
                                                 .fileId("127090")
                                                 .formType(FormType.SEAL_SIGN)

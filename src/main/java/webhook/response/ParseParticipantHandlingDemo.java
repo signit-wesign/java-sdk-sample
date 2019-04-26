@@ -88,6 +88,9 @@ public class ParseParticipantHandlingDemo {
             ParticipantHandling rawDat2 = ente.rawDataAsBean(ParticipantHandling.class);
             System.out.println("\nwebhookResponse rawData is :\n" + JSON.toJSONString(rawDat2, true));
             break;
+        //快捷签署完成事件
+        case QUICK_SIGN_COMPLETED:
+            break;
         default:
             break;
         }
