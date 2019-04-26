@@ -78,8 +78,14 @@ public class ParseParticipantConfirmedDemo {
         // 参与者拒绝
         case PARTICIPANT_REJECTED:
             break;
+        //个人实名认证提交
+        case PERSON_VERIFICATION_SUBMITTED:
+            break;
         // 个人实名认证完成
         case PERSON_VERIFICATION_COMPLETED:
+            break;
+        // 参与者正在处理信封
+        case PARTICIPANT_HANDLING:
             break;
         default:
             break;

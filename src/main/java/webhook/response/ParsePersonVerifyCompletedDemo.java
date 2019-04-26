@@ -3,6 +3,7 @@ package webhook.response;
 import com.alibaba.fastjson.JSON;
 
 import cn.signit.sdk.SignitClient;
+import cn.signit.sdk.pojo.webhook.response.ParticipantHandling;
 import cn.signit.sdk.pojo.webhook.response.PersonVerificationCompleted;
 import cn.signit.sdk.pojo.webhook.response.WebhookResponse;
 import cn.signit.sdk.type.WebhookEventType;
@@ -73,6 +74,9 @@ public class ParsePersonVerifyCompletedDemo {
         // 参与者拒绝
         case PARTICIPANT_REJECTED:
             break;
+        //个人实名认证提交
+        case PERSON_VERIFICATION_SUBMITTED:
+            break;
         // 个人实名认证完成
         case PERSON_VERIFICATION_COMPLETED:
             // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
@@ -81,6 +85,9 @@ public class ParsePersonVerifyCompletedDemo {
             // 法2：
             PersonVerificationCompleted rawDat4 = ente.rawDataAsBean(PersonVerificationCompleted.class);
             System.out.println("\nwebhookResponse rawData is :\n" + JSON.toJSONString(rawData3, true));
+            break;
+        // 参与者正在处理信封
+        case PARTICIPANT_HANDLING:
             break;
         default:
             break;
