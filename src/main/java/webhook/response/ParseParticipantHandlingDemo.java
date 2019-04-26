@@ -87,6 +87,7 @@ public class ParseParticipantHandlingDemo {
             // 法2：
             ParticipantHandling rawDat2 = ente.rawDataAsBean(ParticipantHandling.class);
             System.out.println("\nwebhookResponse rawData is :\n" + JSON.toJSONString(rawDat2, true));
+            System.out.println("现在该我签署了，请把我嵌入到客户方系统中就能实现免登录签署哦："+rawDat2.getActionUrl()); 
             break;
         //快捷签署完成事件
         case QUICK_SIGN_COMPLETED:
