@@ -1,7 +1,7 @@
 
 # 易企签 Java SDK 示例
 
-易企签Java sdk调用示例，包括**快捷签署**，**提交企业实名认证（即：开通电子签约服务）**，**启动信封签署流程**等功能
+易企签Java sdk调用示例，包括**快捷签署**，**提交企业实名认证（即：开通在线电子签约服务接口（企业））**，**提交个人实名认证（即：开通在线电子签约服务接口(个人)）**，**启动信封签署流程**等功能
 
 # 环境要求
 Java 1.6 or later.
@@ -40,7 +40,7 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
 
 [快捷签署调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/QuickSignatureDemo.java)
 
-### 2、提交企业实名认证（即：开通电子签约服务）
+### 2、提交企业实名认证（即：开通在线电子签约服务接口(企业)）
 企业实名认证完整流程：
 - 调用方通过调用接口提交待认证企业信息到易企签平台
 - 提交成功后将向提交的企业信息中的法人或者经办人手机号发送短信，法人或经办人需要点击短信中链接开始进行认证。
@@ -49,12 +49,20 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
 
 [提交企业实名认证调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/EnterpriseVerifyDemo.java)
 
-### 3、启动信封签署流程
+### 3、提交个人实名认证（即：开通在线电子签约服务接口(个人)）
+个人实名认证完整流程：
+-调用方通过接口提交待认证个人信息到易企签平台
+-提交成功后将向提交的待认证的个人联系方式发送消息，待认证的个人需要点消息中的链接开始认证
+
+[提交个人实名认证调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/PersonVerifyDemo.java)
+
+
+### 4、启动信封签署流程
 无需进入易企签平台发起信封，调用方通过设置签署流程以及签署人信息，即可发起信封。
 
 [启动信封签署流程调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/StartEnvelopeDemo.java)
 
-### 4、解析webhook响应数据
+### 5、解析webhook响应数据
 在示例中，我们提供对webhook响应数据进行校验和解析的方法。并给出了一种简便的校验和解析方式。
 
 [校验并解析webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/WebhookResponseParseDemo.java)
