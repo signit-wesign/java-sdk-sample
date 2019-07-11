@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.signit.sdk.SignitClient;
 import cn.signit.sdk.SignitException;
 import cn.signit.sdk.http.Authentication;
@@ -49,6 +51,8 @@ public class QuickSignatureDemo {
         signDetails.add(setSignerForWriteSignWithRectangle());
         // 使用关键字定位签章位置
         signDetails.add(setSignerForSealSignWithKeyword());
+        // 使用关键字定位签章位置，完成定位后删除关键字
+        signDetails.add(setSignerForSealSignWithKeywordAndDeleteAfterLoccate());
         // 在签名域中签名
         // signDetails.add(setSignerForWriteSignWithFieldname());
 
@@ -57,6 +61,7 @@ public class QuickSignatureDemo {
                 .withAcceptDataType(AcceptDataType.URL)
                 .withFileData(fileData)
                 .withSignDetails(signDetails)
+                .withCustomTag("quick_sign_custom_tag")
                 .build();
 
         // 发送请求
@@ -64,8 +69,10 @@ public class QuickSignatureDemo {
             Authentication auth = new Authentication(appId, appSecretKey);
             SignitClient client = new SignitClient(auth, url);
             // SignitClient client = new SignitClient(auth);生产环境可以使用这个
+            System.out.println("request is \n" + JSON.toJSONString(request, true));
             SignatureResponse response = client.sendSignatureRequest(request);
-            System.out.println("Sending request is success:" + response.isSuccess());
+            System.out.println("send request is success:" + response.isSuccess());
+            System.out.println("response is \n" + JSON.toJSONString(response, true));
         } catch (SignitException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -183,6 +190,40 @@ public class QuickSignatureDemo {
         SignerInfo signerInfo = SignerInfo.builder()
                 .withContact("12345678@qq.com")
                 .withName("赵六")
+                .build();
+        // 完整的一个签署信息
+        Signer signer = Signer.builder()
+                .withSequence(3)
+                .withData(data)
+                .withPosition(position)
+                .withSignerInfo(signerInfo)
+                .build();
+
+        return signer;
+    }
+
+    // 使用关键字定位签章位置,定位完成后删除关键字
+    private static Signer setSignerForSealSignWithKeywordAndDeleteAfterLoccate() {
+        // 确定签名数据--这里使用的是签章数据
+        SealData sealData = SealData.builder()
+                .withUrl("https://raw.githubusercontent.com/signit-wesign/java-sdk-sample/master/demoData/testSeal.png")
+                .build();
+        Data data = Data.build()
+                .withSealData(sealData)
+                .build();
+        // 确定签名位置
+        Position position = Position.builder()
+                .withKeywordPosition(KeywordPosition.builder()
+                        .withHeight(75f)
+                        .withWidth(75f)
+                        .withDirection(Direction.CENTER)
+                        .withKeyword("乙方盖章处")
+                        .withDeleteTextAfterLocate(true))
+                .build();
+        // 设置签名人信息--用于颁发证书
+        SignerInfo signerInfo = SignerInfo.builder()
+                .withContact("12345678@163.com")
+                .withName("王七")
                 .build();
         // 完整的一个签署信息
         Signer signer = Signer.builder()
