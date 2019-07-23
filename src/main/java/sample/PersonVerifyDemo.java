@@ -38,7 +38,7 @@ public class PersonVerifyDemo {
         // 测试环境需要手动设置oauthUrl，生产环境不用设置
         client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
-        PersonVerifyRequest request = verifyPersonWithEnableEmbeddedMode();
+        PersonVerifyRequest request = verifyPersonParam();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
         // step3: 执行请求,获得响应
         PersonVerifyResponse response = null;
@@ -81,7 +81,7 @@ public class PersonVerifyDemo {
                                         .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E6%89%8B%E6%8C%81%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BA%BA%E5%83%8F%E9%9D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.jpg")))
                 .returnUrl("https://www.baidu.com")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("1 tag" + new Date().toString())
+                .customTag("person_verify_test")
                 .build();
     }
     
@@ -95,7 +95,7 @@ public class PersonVerifyDemo {
                 .enableEmbeddedMode(true)
                 .returnUrl("https://www.baidu.com")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("1 tag" + new Date().toString())
+                .customTag("person_verify_embedded_mode_test")
                 .build();
     }
 }

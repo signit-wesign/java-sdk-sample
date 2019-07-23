@@ -75,7 +75,7 @@ public class StartEnvelopeDemo {
     public static StartEnvelopeRequest startEnvelope() {
         return StartEnvelopeRequest.builder()
                 .basicinfo(EnvelopeBasicInfo.builder()
-                        .title("title")
+                        .title("启动信封测试")
                         .subject("subject"))
                 .contentInfo(EnvelopeContentInfo.builder()
                         .files(EnvelopeFile.builder()
@@ -223,7 +223,7 @@ public class StartEnvelopeDemo {
                                         .assignedSequence(2)
                                         .contact(Contact.builder()
                                                 .phone("18681695956"))
-                                        .enterpriseName("易企签测试企业")
+                                        .enterpriseName("测试号有限公司")
                                         .name("刘清华")
                                         .needForm(false)
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
@@ -253,7 +253,7 @@ public class StartEnvelopeDemo {
                                                 .initialValue(InitialValue.builder()
                                                         .renderingMode(RenderMode.GRAPHIC)
                                                         .sealData(SealData.builder()
-                                                                .withName("易企签测试企业"))),
+                                                                .withName("测试号有限公司"))),
                                                 PresetForm.builder()
                                                         .formType(FormType.TEXT)
                                                         .fileId("127091")
@@ -327,7 +327,7 @@ public class StartEnvelopeDemo {
                                         .assignedSequence(2)
                                         .contact(Contact.builder()
                                                 .phone("18681695956"))
-                                        .enterpriseName("易企签测试企业")
+                                        .enterpriseName("测试号有限公司")
                                         .name("刘清华")
                                         .needForm(false)
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
@@ -357,7 +357,7 @@ public class StartEnvelopeDemo {
                                                 .initialValue(InitialValue.builder()
                                                         .renderingMode(RenderMode.GRAPHIC)
                                                         .sealData(SealData.builder()
-                                                                .withName("易企签测试企业"))),
+                                                                .withName("测试号有限公司"))),
                                                 PresetForm.builder()
                                                         .formType(FormType.MULTI_CHECK_MARK)
                                                         .fileId("127091")
@@ -434,7 +434,7 @@ public class StartEnvelopeDemo {
                                         .assignedSequence(2)
                                         .contact(Contact.builder()
                                                 .phone("18681695956"))
-                                        .enterpriseName("易企签测试企业")
+                                        .enterpriseName("测试号有限公司")
                                         .name("刘清华")
                                         .needForm(false)
                                         .roleType(EnvelopeRoleType.ENTERPRISE_MEMBER)
@@ -464,7 +464,7 @@ public class StartEnvelopeDemo {
                                                 .initialValue(InitialValue.builder()
                                                         .renderingMode(RenderMode.GRAPHIC)
                                                         .sealData(SealData.builder()
-                                                                .withName("易企签测试企业"))),
+                                                                .withName("测试号有限公司"))),
                                                 PresetForm.builder()
                                                         .formType(FormType.MULTI_QRCODE_MARK)
                                                         .fileId("127091")
@@ -488,7 +488,7 @@ public class StartEnvelopeDemo {
     public static StartEnvelopeRequest startEnvelopeWithEmbeddeMode() {
         return StartEnvelopeRequest.builder()
                 .basicinfo(EnvelopeBasicInfo.builder()
-                        .title("title")
+                        .title("启动信封测试：使用网页嵌入模式")
                         .subject("subject"))
                 .contentInfo(EnvelopeContentInfo.builder()
                         .files(EnvelopeFile.builder()
@@ -598,7 +598,7 @@ public class StartEnvelopeDemo {
     public static StartEnvelopeRequest startEnvelopeWithExpire() {
         return StartEnvelopeRequest.builder()
                 .basicinfo(EnvelopeBasicInfo.builder()
-                        .title("title")
+                        .title("启动信封测试：设置信封过期时间")
                         .subject("subject")
                         .expire(3))
                 .contentInfo(EnvelopeContentInfo.builder()

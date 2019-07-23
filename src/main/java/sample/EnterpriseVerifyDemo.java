@@ -36,7 +36,7 @@ public class EnterpriseVerifyDemo {
         // 测试环境需要手动设置oauthUrl，生产环境不用设置
         client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");
         // step2: 使用SDK封装实名认证请求
-        EnterpriseVerifyRequest request = verifyUseLegelPersonWithLeastParams();
+        EnterpriseVerifyRequest request = verifyUseAgentWithLeastParams();
         System.out.println("\nrequest is:\n\n " + JSON.toJSONString(request, true));
 
         // step3: 执行请求,获得响应
@@ -76,7 +76,7 @@ public class EnterpriseVerifyDemo {
                         .bank("中国农业银行"))
                 .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("hello world legal person, this is test")
+                .customTag("hello_world_legal_person_this_is_test")
                 .build();
     }
     
@@ -91,7 +91,7 @@ public class EnterpriseVerifyDemo {
                         .idCardType(IdCardType.SECOND_GENERATION_IDCARD)
                         .phone("13281522860")
                         .trustInstrumentImage(IdCardImage.builder()
-                                .imageName("委托书照片")
+                                .imageName("委托书照片.docx")
                                 .imageCode(ImageCode.AGENT_TRUST)
                                 .imageData(IdCardImageData.builder()
                                         .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E5%A7%94%E6%89%98%E4%B9%A6%E6%BC%94%E7%A4%BA%E7%A4%BA%E4%BE%8B.docx")))
@@ -108,7 +108,7 @@ public class EnterpriseVerifyDemo {
                         .bank("中国农业银行"))
                 .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("hello world legal People, this is test")
+                .customTag("hello_world_agent_person_this_is_test")
                 .build();
     }
 
