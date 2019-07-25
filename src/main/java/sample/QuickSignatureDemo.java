@@ -32,10 +32,10 @@ import cn.signit.sdk.type.Direction;
 public class QuickSignatureDemo {
 
     public static void main(String[] args) {
-        String appSecretKey = "sk1c4c0b8dd9558615c2d0aa352c31e0fe";
-        String appId = "16a575d060b02426e4f9f9b7d81";
+        String appSecretKey = "sk2c19bee730c9af3ce278917e8a83eeee";
+        String appId = "16c1ce6f2f132852745e677eff1";
         // 测试环境，生产环境不用设置url
-        String url = "http://10.10.9.70:2576";
+        String url = "http://112.44.251.136:2576";
 
         // 签名文件
         FileData fileData = new FileData(
