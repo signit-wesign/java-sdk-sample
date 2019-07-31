@@ -55,6 +55,7 @@ public class QuickSignatureDemo {
         // 设置请求参数
         SignatureRequest request = SignatureRequest.builder()
                 .withAcceptDataType(AcceptDataType.URL)
+                .withCustomTag("THIS_IS_A_CLIENT_CUSTOM_REUIRED_PARAMETER")
                 .withFileData(fileData)
                 .withSignDetails(signDetails)
                 .build();
