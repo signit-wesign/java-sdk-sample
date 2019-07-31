@@ -76,7 +76,7 @@ public class EnterpriseVerifyDemo {
                         .bank("中国农业银行"))
                 .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("hello_world_legal_person_this_is_test")
+                .customTag("THIS_IS_A_CLIENT_CUSTOM_REUIRED_PARAMETER_hello_world_legal_person,this_is_test")
                 .build();
     }
     
@@ -108,7 +108,7 @@ public class EnterpriseVerifyDemo {
                         .bank("中国农业银行"))
                 .returnUrl("https://webhook.site/dd1d048e-c07d-4f5e-bfd2-5e381eccde06")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("hello_world_agent_person_this_is_test")
+                .customTag("THIS_IS_A_CLIENT_CUSTOM_REUIRED_PARAMETER_hello_world_legal_People,this_is_test")
                 .build();
     }
 

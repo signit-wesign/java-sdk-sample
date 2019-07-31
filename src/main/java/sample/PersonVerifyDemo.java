@@ -81,7 +81,7 @@ public class PersonVerifyDemo {
                                         .url("https://github.com/signit-wesign/java-sdk-sample/raw/master/demoData/%E6%89%8B%E6%8C%81%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BA%BA%E5%83%8F%E9%9D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.jpg")))
                 .returnUrl("https://www.baidu.com")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("person_verify_test")
+                .customTag("THIS_IS_A_CLIENT_CUSTOM_REUIRED_PARAMETER_1_tag_" + new Date().getTime())
                 .build();
     }
     
@@ -95,7 +95,7 @@ public class PersonVerifyDemo {
                 .enableEmbeddedMode(true)
                 .returnUrl("https://www.baidu.com")
                 .acceptDataType(AcceptDataType.URL)
-                .customTag("person_verify_embedded_mode_test")
+                .customTag("THIS_IS_A_CLIENT_CUSTOM_REUIRED_PARAMETER_1_tag_" + new Date().getTime())
                 .build();
     }
 }
