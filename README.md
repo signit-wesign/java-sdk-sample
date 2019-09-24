@@ -1,7 +1,7 @@
 
 # 易企签 Java SDK 示例
 
-易企签Java sdk调用示例，包括**快捷签署**，**提交企业实名认证（即：开通在线电子签约服务接口（企业））**，**提交个人实名认证（即：开通在线电子签约服务接口(个人)）**，**启动信封签署流程**等功能
+易企签Java sdk调用示例，包括**快捷签署**，**提交企业实名认证（即：开通在线电子签约服务接口（企业））**，**提交个人实名认证（即：开通在线电子签约服务接口(个人)）**，**启动信封签署流程**,**快捷会签**等功能
 
 # 环境要求
 Java 1.6 or later.
@@ -25,7 +25,7 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
     <dependency>
 		<groupId>cn.signit.sdk</groupId>
 		<artifactId>signit-java-sdk</artifactId>
-		<version>2.4.1</version>
+		<version>2.5.0</version>
 	</dependency>
 
 ### 源码
@@ -67,6 +67,8 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
 
 ### 6、快捷会签
 多个人在一个文档上签字，开发人员只需指定签字区域，无需计算每个签署位置坐标即可实现签字自动排版
+
+
 
 [快捷会签调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/m                                                                                                                                                                            ain/java/sample/CountersignatureSignDemo.java)
 
