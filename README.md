@@ -25,7 +25,7 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
     <dependency>
 		<groupId>cn.signit.sdk</groupId>
 		<artifactId>signit-java-sdk</artifactId>
-		<version>2.5.2</version>
+		<version>2.5.3</version>
 	</dependency>
 
 ### 源码
