@@ -1,0 +1,56 @@
+package sample;
+
+import com.alibaba.fastjson.JSON;
+
+import cn.signit.sdk.SignitClient;
+import cn.signit.sdk.SignitException;
+import cn.signit.sdk.pojo.ErrorResp;
+import cn.signit.sdk.pojo.request.RevokeSignProcessRequest;
+import cn.signit.sdk.pojo.response.RevokeSignProcessResopnse;
+import cn.signit.sdk.util.FastjsonDecoder;
+
+/**
+ * 易企签 Java SDK 撤销指定签署流程调用示例代码</br>
+ * 本示例代码仅展示了如何使用易企签 Java
+ * SDK进行启动信封，示例代码中的姓名、手机、邮箱、签名文件、手写签名数据以及印章数据均为虚拟数据，实际运行时需要根据具体需求设置相关数据</br>
+ * 示例代码中的appId，appSecretKey，url均为测试环境参数，实际运行时需要将相关参数修改为生产环境参数
+ * 更多信息详见：https://github.com/signit-wesign/java-sdk-sample/tree/master/src/main/java/sample
+ */
+public class RevokeSignProcessDemo {
+
+    public static void main(String[] args) {
+        String appSecretKey = "sk3847e93a9e3835e6e42a4944ae979308";
+        String appId = "171ba7cc03600ff1aa995d134a1";
+
+        // "https://open.signit.cn/v1/open/envelopes/{envelope-wsid}/participants/{participant-wsid}/revoke";
+        String appUrl = "http://112.44.251.136:2576/v1/open/envelopes/WSID_ENVE_00000163be1044920242ac1300050001/participants/WSID_EPAR_00000163be1044bc0242ac1300050001/revoke";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
+
+        // step1: 初始化易企签开放平台客户端
+        SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
+        client.setOauthUrl("http://112.44.251.136:2576/v1/oauth/oauth/token");// 测试环境需要手动设置oauthUrl，生产环境不用设置
+
+        // step2: 使用SDK封装撤销指定签署流程请求
+        RevokeSignProcessRequest request = getRevokeSignProcessParam();
+        System.out.println("request is :\n" + JSON.toJSONString(request, true));
+
+        // step3: 执行请求,获得响应
+        RevokeSignProcessResopnse response = null;
+        try {
+            response = client.execute(request);
+        } catch (SignitException e) {
+            ErrorResp errorResp = null;
+            if (FastjsonDecoder.isValidJson(e.getMessage())) {
+                errorResp = FastjsonDecoder.decodeAsBean(e.getMessage(), ErrorResp.class);
+            }
+            System.out.println("\nerror response is:\n" + JSON.toJSONString(errorResp, true));
+        }
+        System.out.println("\nresponse is:\n" + JSON.toJSONString(response, true));
+    }
+
+    // 使用SDK封装撤销指定签署流程请求
+    private static RevokeSignProcessRequest getRevokeSignProcessParam() {
+        return RevokeSignProcessRequest.builder()
+                .revokeReason("撤销流程原因")
+                .build();   
+    }
+}
