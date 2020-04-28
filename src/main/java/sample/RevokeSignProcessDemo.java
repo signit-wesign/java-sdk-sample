@@ -23,7 +23,7 @@ public class RevokeSignProcessDemo {
         String appId = "171ba7cc03600ff1aa995d134a1";
 
         // "https://open.signit.cn/v1/open/envelopes/{envelope-wsid}/participants/{participant-wsid}/revoke";
-        String appUrl = "http://112.44.251.136:2576/v1/open/envelopes/WSID_ENVE_00000163be1044920242ac1300050001/participants/WSID_EPAR_00000163be1044bc0242ac1300050001/revoke";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
+        String appUrl = "http://112.44.251.136:2576/v1/open/envelopes/WSID_ENVE_00000171c0bae62100ff1aa995d10001/participants/WSID_EPAR_00000171bfe9960000ff1aa995d10001/revoke";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
@@ -49,8 +49,6 @@ public class RevokeSignProcessDemo {
 
     // 使用SDK封装撤销指定签署流程请求
     private static RevokeSignProcessRequest getRevokeSignProcessParam() {
-        return RevokeSignProcessRequest.builder()
-                .revokeReason("撤销流程原因")
-                .build();   
+        return RevokeSignProcessRequest.builder().revokeReason("这是撤销流程原因").build();
     }
 }

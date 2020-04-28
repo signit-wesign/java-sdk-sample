@@ -3,7 +3,7 @@ package webhook.response;
 import com.alibaba.fastjson.JSON;
 
 import cn.signit.sdk.SignitClient;
-import cn.signit.sdk.pojo.webhook.response.EnterpriseVerificationCompleted;
+import cn.signit.sdk.pojo.webhook.response.RevokeSignProcess;
 import cn.signit.sdk.pojo.webhook.response.WebhookResponse;
 import cn.signit.sdk.type.WebhookEventType;
 import cn.signit.sdk.util.HmacSignatureBuilder;
@@ -18,15 +18,19 @@ import cn.signit.sdk.util.HmacSignatureBuilder;
 public class ParseRevokeSignProcessDemo {
 
     public static void main(String[] args) {
-        String personVerifyWebhookRespStr = "";
+        String personVerifyWebhookRespStr = "{\r\n" + "  \"event\": \"envelopeCompleted\",\r\n" + "  \"target\": {\r\n"
+                + "    \"webhookWsid\": \"WSID_HOOK_00000171bbbae14a00ff1aa995d10001\",\r\n"
+                + "    \"destination\": \"https://webhook.site/2750a3f1-76e4-433f-8aef-ada4ad34c943\"\r\n" + "  },\r\n"
+                + "  \"rawData\": \"{\\\"code\\\":\\\"100600000\\\",\\\"message\\\":\\\"操作成功\\\",\\\"actionUrl\\\":null,\\\"actions\\\":null,\\\"account\\\":null,\\\"customTag\\\":\\\"test123\\\",\\\"invokeNo\\\":\\\"202004281631261095219683741001\\\",\\\"basicEnvelope\\\":{\\\"wsid\\\":\\\"WSID_ENVE_00000171bfe9959f00ff1aa995d10001\\\",\\\"senderWsid\\\":\\\"WSID_EMEM_00000171bf6136550e6686044b270001\\\",\\\"senderName\\\":\\\"测试用企业账号,郑复俊\\\",\\\"type\\\":\\\"ANY\\\",\\\"title\\\":\\\"This is test Envelope\\\",\\\"subject\\\":\\\"subject\\\",\\\"status\\\":\\\"ED_FAIL_REVOKE\\\",\\\"statusDatetime\\\":1588075287000,\\\"statusReason\\\":\\\"这是撤销流程原因\\\",\\\"createdDatetime\\\":1588062688000,\\\"modifiedDatetime\\\":1588075287000,\\\"sendDatetime\\\":1588062737000,\\\"expireDatetime\\\":1619598688000,\\\"finishedDatetime\\\":null,\\\"currentSequence\\\":2,\\\"templateWsid\\\":null,\\\"multisendNum\\\":null,\\\"authLevel\\\":\\\"LOW\\\",\\\"mode\\\":\\\"MANUAL\\\",\\\"invokeNo\\\":\\\"202004281631261095219683741001\\\",\\\"fromTag\\\":\\\"WSID_ENTE_00000171aaf6bd384281d802bf3e0001\\\",\\\"metadata\\\":\\\"{\\\\\\\"acceptDataType\\\\\\\":null}\\\",\\\"tagId\\\":{\\\"value\\\":null},\\\"acceptDataType\\\":null,\\\"openMetadata\\\":null},\\\"senderParticipant\\\":null,\\\"receiverParticipant\\\":null,\\\"signData\\\":null,\\\"returnUrl\\\":\\\"http://www.signit.com\\\",\\\"freeLoginSign\\\":null,\\\"links\\\":[]}\",\r\n"
+                + "  \"needCallBack\": false\r\n" + "}";
         String appSecretKey = "sk3847e93a9e3835e6e42a4944ae979308";
         String appId = "171ba7cc03600ff1aa995d134a1";
         // webhook响应header中x-signit-signature
-        String signitSignature = "";
+        String signitSignature = "HmacSHA512 171ba7cc03600ff1aa995d134a1:aOblWnSgXX958I6ZKHgeA8FQ0y3E9UMMqN7lq7t5slUQz3P0N0BewCzxjunitc1SdNBBH2oLINKMMa5MTEWiCg";
         // webhook响应header中x-signit-nonce
-        String nonce = "";
+        String nonce = "93LoistZ1T4ebbUFMa687AS0";
         // webhook响应header中x-signit-date
-        String dataString = "";
+        String dataString = "Tue Apr 28 20:20:37 CST 2020";
         // webhook响应header中host
         String host = "webhook.site";
 
@@ -57,6 +61,14 @@ public class ParseRevokeSignProcessDemo {
             break;
         // 信封流程完成
         case ENVELOPE_COMPLETED:
+            // case 追加撤销指定签署流程:
+            // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
+            // RevokeSignProcess rawData1 = (RevokeSignProcess)
+            // ente.rawDataAsBean();
+            // boolean s = rawData1.isSuccess();
+            // 法2：
+            RevokeSignProcess rawDat2 = ente.rawDataAsBean(RevokeSignProcess.class);
+            System.out.println("\nwebhookResponse rawData is :\n" + JSON.toJSONString(rawDat2, true));
             break;
         // 信封流程启动
         case ENVELOPE_STARTED:
@@ -79,19 +91,6 @@ public class ParseRevokeSignProcessDemo {
         // 快捷签署完成事件
         case QUICK_SIGN_COMPLETED:
             break;
-
-        // case 追加撤销指定签署流程:
-        // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
-        // EnterpriseVerificationCompleted rawData1 =
-        // (EnterpriseVerificationCompleted) ente.rawDataAsBean();
-        // boolean s = rawData1.isSuccess();
-        // 法2：
-        // EnterpriseVerificationCompleted rawDat2 =
-        // ente.rawDataAsBean(EnterpriseVerificationCompleted.class);
-        // System.out.println("\nwebhookResponse rawData is :\n" +
-        // JSON.toJSONString(rawDat2, true));
-        // break;
-
         default:
             break;
         }
