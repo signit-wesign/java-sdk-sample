@@ -1,7 +1,7 @@
 
 # 易企签 Java SDK 示例
 
-易企签Java sdk调用示例，包括**快捷签署**，**提交企业实名认证（即：开通在线电子签约服务接口（企业））**，**提交个人实名认证（即：开通在线电子签约服务接口(个人)）**，**启动信封签署流程**,**快捷会签**等功能
+易企签Java sdk调用示例，包括**快捷签署**，**提交企业实名认证（即：开通在线电子签约服务接口（企业））**，**提交个人实名认证（即：开通在线电子签约服务接口(个人)）**，**启动信封签署流程**,**快捷会签**,**信封资源-标准签手动模式（即：自由签）共 (5) 个:[创建签署流程,托管签署流程到易企签,签署流程中追加新的签署方,撤销指定签署流程,结束整个签署流程]**等功能
 
 # 环境要求
 Java 1.6 or later.
@@ -25,7 +25,7 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
     <dependency>
 		<groupId>cn.signit.sdk</groupId>
 		<artifactId>signit-java-sdk</artifactId>
-		<version>2.5.3</version>
+		<version>2.6.0</version>
 	</dependency>
 
 ### 源码
@@ -68,8 +68,6 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
 ### 6、快捷会签
 多个人在一个文档上签字，开发人员只需指定签字区域，无需计算每个签署位置坐标即可实现签字自动排版
 
-
-
 [快捷会签调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/m                                                                                                                                                                            ain/java/sample/CountersignatureSignDemo.java)
 
 [校验并解析webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/WebhookResponseParseDemo.java)
@@ -77,3 +75,22 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
 [通过HttpServletRequest校验并解析webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/WebhookResponseParseByRequestDemo.java)
 
 [校验和并解析各类型webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/webhook/response)
+
+### 7、信封资源-标准签手动模式（即：自由签）共 (5) 个
+将创建签署流程，托管签署流程到易企签，签署流程中追加新的签署方，撤销指定签署流程，结束整个签署流程等接口解耦合，开发人员可以根据业务需求选择性的使用所提供接口。  
+
+[创建签署流程调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/CreateSignProcessDemo.java)  
+
+[托管签署流程到易企签调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/EntrustSignProcess2WeSignDemo.java)  
+[托管签署流程到易企签webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/webhook/response/ParseEntrustSignProcess2WeSignDemo.java)  
+
+[签署流程中追加新的签署方调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/AppendEnvelopeParticipantsDemo.java)  
+
+[撤销指定签署流程调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/RevokeSignProcessDemo.java)  
+[撤销指定签署流程webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/webhook/response/ParseRevokeSignProcessDemo.java)  
+
+[结束整个签署流程调用示例](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/EndSignProcessDemo.java)  
+[结束整个签署流程webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/webhook/response/ParseEndSignProcessDemo.java)  
+
+
+
