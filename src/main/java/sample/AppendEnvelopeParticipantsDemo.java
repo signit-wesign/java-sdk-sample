@@ -27,7 +27,7 @@ public class AppendEnvelopeParticipantsDemo {
         String appSecretKey = "sk3847e93a9e3835e6e42a4944ae979308";
         String appId = "171ba7cc03600ff1aa995d134a1";
         // "https://open.signit.cn/v1/open/envelopes/{envelope-wsid}/participants/{participant-wsid}/append";
-        String appUrl = "http://112.44.251.136:2576/v1/open/envelopes/WSID_ENVE_00000171c0838ae800ff1aa995d10001/participants/WSID_EPAR_00000171bfe9960000ff1aa995d10001/append";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
+        String appUrl = "http://112.44.251.136:2576/v1/open/envelopes/WSID_ENVE_00000171c5c7ab490e6686044b270001/participants/WSID_EPAR_00000171bfe9960000ff1aa995d10001/append";// 测试环境使用的地址，生产环境时，应该使用上面一个appUrl
 
         // step1: 初始化易企签开放平台客户端
         SignitClient client = new SignitClient(appId, appSecretKey, appUrl);
