@@ -93,4 +93,44 @@ sdk中部分功能需要依托webhook传递数据，所以需要设置一个webh
 [结束整个签署流程webhook响应数据](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/webhook/response/ParseEndSignProcessDemo.java)  
 
 
+### 8、相对方账户相关
+将签署平台跟第三方平台的个人以及企业账号体系快速打通，并能进行账号的基本管理，进而让业务方系统能快速具备合法电子签名的功能，包括相对方账户创建、编辑、查询、注销、绑定等接口，开发人员可以根据业务需求选择性的使用所提供接口。
 
+#### 8.1 相对方个人账户
+[创建相对方个人账户](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/AddUserPersonRelativeDemo.java)  
+
+[通过签署平台相对方个人账户ID查询信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/QueryUserPersonRelativeByWsidDemo.java)
+
+[通过第三方平台个人账户唯一ID查询信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/QueryUserPersonRelativeDemo.java)
+
+[通过签署平台相对方个人账户ID修改账户信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/UpdateUserPersonRelativeByWsidDemo.java)
+
+[通过第三方平台个人账户唯一ID修改信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/UpdateUserPersonRelativeDemo.java)
+
+[通过签署平台相对方个人账户ID注销账户](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/CancelUserPersonRelativeByWsidDemo.java)
+
+[通过第三方平台个人账户唯一ID注销账户](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/CancelUserPersonRelativeDemo.java)
+
+#### 8.2 相对方企业（机构）账户
+[创建相对方企业账户](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/AddUserEnterpriseRelativeDemo.java)
+
+[通过签署平台相对方企业账户ID查询信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/QueryUserEnterpriseRelativeByWsidDemo.java)
+
+[通过第三方平台企业账户唯一ID查询信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/QueryUserEnterpriseRelativeDemo.java)
+
+[通过签署平台相对方企业账户ID修改账户信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/UpdateUserEnterpriseRelativeByWsidDemo.java)
+
+[通过第三方平台企业账户唯一ID修改信息](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/UpdateUserEnterpriseRelativeDemo.java)
+
+[通过签署平台相对方个人账户ID注销账户](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/CancelUserEnterpriseRelativeByWsidDemo.java)
+
+[通过第三方平台企业账户唯一ID注销账户](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/CancelUserEnterpriseRelativeDemo.java)
+
+#### 8.2 相对方经办人
+[通过签署平台相对方企业ID和相对方个人ID进行绑定](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/BindUserHandlerRelativeByWsidDemo.java)
+
+[通过第三方平台企业唯一ID和个人唯一ID进行绑定](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/BindUserHandlerRelativeByThirdPartyIdDemo.java)
+
+[通过签署平台相对方企业ID和相对方个人ID进行解除绑定](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/UnbindUserHandlerRelativeByWsidDemo.java)
+
+[通过第三方平台企业唯一ID和个人唯一ID进行解除绑定](https://github.com/signit-wesign/java-sdk-sample/blob/master/src/main/java/sample/relative/UnbindUserHandlerRelativeByThirdPartyIdDemo.java)
