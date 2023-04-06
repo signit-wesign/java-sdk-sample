@@ -1,5 +1,6 @@
 package sample;
 
+import cn.signit.sdk.pojo.webhook.response.EnvelopeCompletedSucceed;
 import com.alibaba.fastjson.JSON;
 
 import cn.signit.sdk.SignitClient;
@@ -45,7 +46,6 @@ public class WebhookResponseParseDemo {
 
         // step2: 解析webhook响应数据
         WebhookResponse ente = SignitClient.parseWebhookResponse(enteVerifyWebhookRespStr);
-
         // step3: 解析获取rawData
         switch (WebhookEventType.parse(ente.getEvent())) {
         // 企业实名认证提交
@@ -81,6 +81,16 @@ public class WebhookResponseParseDemo {
             // 个人实名认证完成
         case PERSON_VERIFICATION_COMPLETED:
             break;
+            case ENVELOPE_COMPLETED_SUCCEED:
+                // ps:rawData的命名方式为事件名称转换的大驼峰命名，数据所在包为cn.signit.sdk.pojo.webhook.response，其获取的2种方式如下：
+                // 法1：
+                EnvelopeCompletedSucceed rawData12 = (EnvelopeCompletedSucceed) ente.rawDataAsBean();
+                boolean isok = rawData12.isSuccess();
+                System.out.println(isok);
+                // 法2：
+                EnvelopeCompletedSucceed rawDat13 = ente.rawDataAsBean(EnvelopeCompletedSucceed.class);
+                String s1 = JSON.toJSONString(rawDat13.getThirdPartFieldsMetadata());
+                System.out.println(s1);
         default:
             break;
         }
