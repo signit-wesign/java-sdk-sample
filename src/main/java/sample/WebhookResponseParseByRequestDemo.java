@@ -30,7 +30,7 @@ import cn.signit.sdk.util.HmacSignatureBuilder;
  * 更多信息详见：https://github.com/signit-wesign/java-sdk-sample/tree/master/src/main/java/sample
  */
 public class WebhookResponseParseByRequestDemo {
-    @SpringBootApplication
+    @SpringBootApplication(scanBasePackageClasses = sample.WebhookResponseParseByRequestDemo.Application.class)
     public static class Application {
         public static void main(String[] args) throws Exception {
             Object[] reso = { Application.class, CatchWebhookResponse.class };
